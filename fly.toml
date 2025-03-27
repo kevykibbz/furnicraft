@@ -1,16 +1,25 @@
-app = "shopsphere" 
-primary_region = "lax"  
+# fly.toml app configuration file generated for furnicraft on 2025-03-27T17:04:05+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'furnicraft'
+primary_region = 'lax'
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = 'Dockerfile'
 
 [env]
-  NODE_ENV = "production"
-  APP_PORT = "3000"
-  APP_NAME = "ShopSphere"
-  APP_PHONE_NUMBER = "+1 123 456 7890"
-  BUCKET_STORAGE_URL = "tevinly-7b079.appspot.com"
+  APP_NAME = 'FurniCraft'
+  APP_PHONE_NUMBER = '+1 123 456 7890'
+  PORT = "8080"
+  NODE_ENV = 'production'
 
 [http_service]
   internal_port = 3000
   force_https = true
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
