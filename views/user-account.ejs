@@ -1,0 +1,186 @@
+<section>
+  <div class="wrap-banner">
+    <!-- breadcrumb -->
+    <nav class="breadcrumb-bg">
+      <div class="container no-index">
+        <div class="breadcrumb">
+          <ol>
+            <li>
+              <a href="/">
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="/user-account">
+                <span>My Account</span>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </nav>
+
+    <div class="acount head-acount">
+      <div class="container">
+        <div id="main">
+          <h1 class="title-page">My Account</h1>
+          <div class="content" id="block-history">
+            <table class="std table">
+              <tbody>
+                <tr>
+                  <th class="first_item">My Name :</th>
+                  <td><%= user.fullName %></td>
+                </tr>
+                <tr>
+                  <th class="first_item">Email :</th>
+                  <td><%= user.email %></td>
+                </tr>
+                <tr>
+                  <th class="first_item">Company :</th>
+                  <td><%= user.company %></td>
+                </tr>
+                <tr>
+                  <th class="first_item">Address :</th>
+                  <td><%= user.fullAddress %></td>
+                </tr>
+                <tr>
+                  <th class="first_item">City :</th>
+                  <td><%= user.shippingAddress.city %></td>
+                </tr>
+                <tr>
+                  <th class="first_item">Postal/Zip Code :</th>
+                  <td><%= user.shippingAddress.postalCode %></td>
+                </tr>
+                <tr>
+                  <th class="first_item">Phone :</th>
+                  <td><%= user.phone %></td>
+                </tr>
+                <tr>
+                  <th class="first_item">Country:</th>
+                  <td><%= user.shippingAddress.country %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div mbsc-page class="demo-showing-the-popover">
+            <div style="height: 100%">
+              <div style="display: none">
+                <div id="shipping-address-popup">
+                  <div class="mbsc-align-center">
+                    <div class="mbsc-align-center mbsc-padding">
+                        <div class="logo-container d-flex justify-content-center">
+                            <a href="/" class="footer-logo-link" aria-label="FurniCraft Home">
+                              <img src="/img/logo.png" 
+                                   alt="FurniCraft Logo" 
+                                   class="footer-logo-img"
+                                   width="40"
+                                   height="40">
+                              <span class="footer-logo-text">FurniCraft</span>
+                            </a>
+                        </div>  
+                        <% if (user.shippingAddress) { %>
+                          <div style="margin: 1rem 0; white-space: pre-line;">
+                            <strong>This is your default shipping address</strong><br>
+                            <%= user.fullAddress %>
+                          </div>
+                        <% } %>
+                      
+                        <p>Thank you for being our valued customer.</p>
+                    </div>
+                    <div class="mbsc-button-group-block">
+                      <button mbsc-button id="shipping-address-popup-close" class="btn btn-primary">
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="shipping-address-popup-open">
+            view Shipping Address
+          </button>
+          <a class="btn btn-primary" href="/">Shop now</a>
+          <div class="order">
+            <h4>
+              Order
+              <span class="detail">History</span>
+            </h4>
+            <% if (orders && orders.length > 0) { %>
+              <table class="table table-wishlist table-mobile">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Track Order</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+        
+                <tbody>
+                  <% orders.forEach(order => { %>
+                    <tr>
+                      <td><%= order._id %></td>
+                      <td><%= order.createdAt.toLocaleDateString() %></td>
+                      <td>$<%= order.totalAmount.toFixed(2) %></td>
+                      <td>
+                        <!-- Add status-specific colors -->
+                        <a href="#" class="btn btn-sm 
+                          <% if (order.status === "Pending") { %>btn-warning<% } %>
+                          <% if (order.status === "Processing") { %>btn-info<% } %>
+                          <% if (order.status === "Shipped") { %>btn-primary<% } %>
+                          <% if (order.status === "Delivered") { %>btn-success<% } %>
+                          <% if (order.status === "Cancelled") { %>btn-danger<% } %>">
+                          <%= order.status %>
+                        </a>
+                      </td>
+                      <td>
+                        <!-- Disable "Track Order" button for Delivered or Cancelled orders -->
+                        <a href="#" class="btn btn-sm btn-info 
+                          <% if (order.status === "Delivered" || order.status === "Cancelled") { %>disabled<% } %>">
+                          Track Order
+                        </a>
+                      </td>
+                      <td>
+                        <a href="/orders/<%= order._id %>" class="btn btn-sm btn-primary">View Details</a>
+                      </td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            <% } else { %>
+              <p>You haven't placed any orders yet.</p>
+              <a href="/" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  mobiscroll.setOptions({
+    locale: mobiscroll.localeEn,
+    theme: "ios",
+    themeVariant: "light",
+  });
+
+  $(function () {
+    var shippingAddressPopup = $("#shipping-address-popup")
+      .mobiscroll()
+      .popup({
+        display: window.innerWidth < 768 ? "bottom" : "center",
+      })
+      .mobiscroll("getInst");
+
+    $("#shipping-address-popup-open").on("click", function () {
+        shippingAddressPopup.open();
+    });
+
+    $("#shipping-address-popup-close").on("click", function () {
+        shippingAddressPopup.close();
+    });
+  });
+</script>

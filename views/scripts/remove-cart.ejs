@@ -1,0 +1,152 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("[data-product-id]").forEach((button) => {
+        if (!button.classList.contains("remove-from-cart")) {
+            button.classList.add("remove-from-cart");
+            button.classList.add("remove");
+        }    
+      button.addEventListener("click", async function (e) {
+        e.preventDefault();
+
+        const productId = this.dataset.productId;
+        // Try to find closest tr or li
+        const itemElement = this.closest("tr") || this.closest("li");
+
+        // Show loading state
+        const icon = this.querySelector("i");
+        icon.classList.remove("fa-trash-o");
+        icon.classList.add("fa-spinner", "fa-spin");
+        this.style.pointerEvents = "none";
+
+        try {
+          const response = await fetch("/api/cart/remove", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            body: JSON.stringify({ productId }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            // Fade out animation
+            itemElement.style.transition = "all 0.3s ease";
+            itemElement.style.opacity = "0";
+
+            setTimeout(() => {
+              // Remove the element
+              itemElement.remove();
+
+              // Update cart counter immediately
+              const currentCount = parseInt(
+                document.querySelector(".cart-products-count").textContent
+              );
+              const newCount = currentCount - 1;
+              document.querySelector(".cart-products-count").textContent =
+                newCount;
+
+              // Check if cart is now empty
+              if (newCount === 0) {
+                document.querySelector(".cart-products-count").style.display =
+                  "none";
+
+                // Show empty cart message - works for both table and list structures
+                const container =
+                  document.querySelector(".cart-items") ||
+                  document.querySelector(".cart-content tbody");
+
+                if (container.tagName === "TBODY") {
+                  // Table structure
+                  container.innerHTML = `
+                      <tr class="empty-cart">
+                        <td colspan="3" class="text-center py-4">
+                          <i class="fa fa-shopping-cart fa-3x text-muted mb-2"></i>
+                          <p class="text-muted">Your cart is empty</p>
+                          <a href="/products" class="btn btn-sm btn-primary">Browse Products</a>
+                        </td>
+                      </tr>
+                      <tr class="total">
+                        <td colspan="2">Total:</td>
+                        <td>£0.00</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" class="d-flex justify-content-center">
+                          <div class="cart-button">
+                            <a href="/cart" title="View Cart">View Cart</a>
+                            <a href="/checkout" title="Checkout">Checkout</a>
+                          </div>
+                        </td>
+                      </tr>`;
+                } else {
+                  // List structure
+                  container.innerHTML = `
+                      <li class="empty-cart text-center py-4">
+                        <i class="fa fa-shopping-cart fa-3x text-muted mb-2"></i>
+                        <p class="text-muted">Your cart is empty</p>
+                        <a href="/products" class="btn btn-sm btn-primary">Browse Products</a>
+                      </li>`;
+                }
+              } else {
+                // Update the cart total if not empty
+                updateCartTotal();
+              }
+            }, 300);
+
+            showPopup(
+              "success",
+              "Item removed from cart",
+              "Item was removed from your cart successfully"
+            );
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          // Revert button state
+          icon.classList.remove("fa-spinner", "fa-spin");
+          icon.classList.add("fa-trash-o");
+          this.style.pointerEvents = "auto";
+          showPopup("error", "Error", error.message);
+        }
+      });
+    });
+  });
+
+  function updateCartTotal() {
+    let total = 0;
+
+    // Handle both table and list structures
+    const items = document.querySelectorAll(
+      "tr.cart-item, li.cart-item, tr:not(.empty-cart):not(.total):not(.cart-button)"
+    );
+
+    items.forEach((item) => {
+      const priceElement = item.querySelector(
+        ".product-price .value, .product-price"
+      );
+      const quantityInput = item.querySelector("input[name='qty']");
+
+      if (priceElement && quantityInput) {
+        const priceText = priceElement.textContent;
+        const price = parseFloat(priceText.replace(/[^0-9.-]+/g, ""));
+        const quantity = parseInt(quantityInput.value) || 1;
+        total += price * quantity;
+
+        // Update line total if element exists
+        const lineTotal = item.querySelector(".product-price.total");
+        if (lineTotal) {
+          lineTotal.textContent = `£${(price * quantity).toFixed(2)}`;
+        }
+      }
+    });
+
+    // Update total display
+    const totalElement = document.querySelector(
+      ".total td:last-child, .cart-total .value"
+    );
+    if (totalElement) {
+      totalElement.textContent = `£${total.toFixed(2)}`;
+    }
+  }
+</script>

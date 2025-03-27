@@ -1,0 +1,171 @@
+<section>
+    <div id="wrapper-site">
+        <nav class="breadcrumb-bg">
+            <div class="container no-index">
+                <div class="breadcrumb">
+                    <ol>
+                        <li>
+                            <a href="/">
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/cart">
+                                <span>Shopping Cart</span>
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div id="content-wrapper" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 onecol">
+                    <section id="main">
+                        <div class="cart-grid row">
+                            <div class="col-md-9 col-xs-12 check-info">
+                                <h1 class="title-page">Shopping Cart</h1>
+                                <div class="cart-container">
+                                    <div class="cart-overview js-cart">
+                                        <% if (cart.items.length > 0) { %>
+                                            <ul class="cart-items">
+                                                <% cart.items.forEach(item => { %>
+                                                    <li class="cart-item" data-product-id="<%= item.product._id %>">
+                                                        <div class="product-line-grid row justify-content-between">
+                                                            <div class="product-line-grid-left col-md-2">
+                                                                <span class="product-image media-middle">
+                                                                    <a href="/product/<%= item.product._id %>">
+                                                                        <img class="img-fluid" src="<%= item.product.images[0].url || '/img/placeholder.jpg' %>" alt="<%= item.product.images[0].altText|| item.product.name %>" loading="lazy">
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                            <div class="product-line-grid-body col-md-6">
+                                                                <div class="product-line-info">
+                                                                    <a class="label" href="/product/<%= item.product._id %>"><%= item.product.name %></a>
+                                                                </div>
+                                                                <div class="product-line-info product-price">
+                                                                    <span class="value">£<%= item.product.price.toFixed(2) %></span>
+                                                                </div>
+                                                                <% if (item.size) { %>
+                                                                    <div class="product-line-info">
+                                                                        <span class="label-atrr">Size:</span>
+                                                                        <span class="value"><%= item.size %></span>
+                                                                    </div>
+                                                                <% } %>
+                                                                <% if (item.color) { %>
+                                                                    <div class="product-line-info">
+                                                                        <span class="label-atrr">Color:</span>
+                                                                        <span class="value"><%= item.color %></span>
+                                                                    </div>
+                                                                <% } %>
+                                                            </div>
+                                                            <div class="product-line-grid-right text-center product-line-actions col-md-4">
+                                                                <div class="row">
+                                                                    <div class="col-md-5 col qty">
+                                                                        <div class="label">Qty:</div>
+                                                                        <div class="quantity">
+                                                                            <input type="text" name="qty" value="<%= item.quantity %>" class="input-group form-control" data-product-id="<%= item.product._id %>">
+
+                                                                            <span class="input-group-btn-vertical">
+                                                                                <button class="btn btn-touchspin js-touchspin bootstrap-touchspin-up" type="button" data-action="increment" data-product-id="<%= item.product._id %>">
+                                                                                    +
+                                                                                </button>
+                                                                                <button class="btn btn-touchspin js-touchspin bootstrap-touchspin-down" type="button" data-action="decrement" data-product-id="<%= item.product._id %>">
+                                                                                    -
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col price">
+                                                                        <div class="label">Total:</div>
+                                                                        <div class="product-price total">
+                                                                            £<%= (item.product.price * item.quantity).toFixed(2) %>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 col text-xs-right align-self-end">
+                                                                        <div class="cart-line-product-actions">
+                                                                            <a class="remove-from-cart" href="#" data-link-action="delete-from-cart" data-product-id="<%= item.product._id %>">
+                                                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                <% }); %>
+                                            </ul>
+                                        <% } else { %>
+                                            <div class="alert alert-warning">
+                                                <i class="fa fa-shopping-cart fa-lg mr-2"></i>
+                                                Your cart is empty. 
+                                                <a href="/products" class="alert-link">Continue shopping</a>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <% if (cart.items.length > 0) { %>
+                                    <a href="/checkout" class="continue btn btn-primary pull-xs-right">
+                                        Continue to Checkout
+                                    </a>
+                                <% } %>
+                            </div>
+                            <% if (cart.items.length > 0) { %>
+                                <div class="cart-grid-right col-xs-12 col-lg-3">
+                                    <div class="cart-summary">
+                                        <div class="cart-detailed-totals">
+                                            <div class="cart-summary-products">
+                                                <div class="summary-label">There <%= cart.items.length === 1 ? 'is 1 item' : `are ${cart.items.length} items` %> in your cart</div>
+                                            </div>
+                                            <div class="cart-summary-line" id="cart-subtotal-products">
+                                                <span class="label js-subtotal">Total products:</span>
+                                                <span class="value">£<%= cart.items.length.toFixed(2) %></span>
+                                            </div>
+                                            <div class="cart-summary-line" id="cart-subtotal-shipping">
+                                                <span class="label">Total Shipping:</span>
+                                                <span class="value"><%= cart.shippingCost === 0 ? 'Free' : `£${cart.shippingCost.toFixed(2)}` %></span>
+                                            </div>
+                                            <% 
+                                                let total = 0; 
+                                                cart.items.forEach(item => { total += item.product.price * item.quantity;}); 
+
+                                            %>
+
+                                        <div class="cart-summary-line cart-total">
+                                            <span class="label">Total:</span>
+                                            <span class="value">£<%= total.toFixed(2) %> (tax incl.)</span>
+                                        </div>
+                                        
+                                        </div>
+                                    </div>
+                                    <div id="block-reassurance">
+                                        <ul>
+                                            <li>
+                                                <div class="block-reassurance-item">
+                                                    <img src="/img/product/check1.png" alt="Security policy" loading="lazy">
+                                                    <span>Security policy</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="block-reassurance-item">
+                                                    <img src="/img/product/check2.png" alt="Delivery policy" loading="lazy">
+                                                    <span>Delivery policy</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="block-reassurance-item">
+                                                    <img src="/img/product/check3.png" alt="Return policy" loading="lazy">
+                                                    <span>Return policy</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

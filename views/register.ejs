@@ -1,0 +1,200 @@
+<section>
+  <div class="wrap-banner">
+    <!-- breadcrumb -->
+    <nav class="breadcrumb-bg">
+      <div class="container no-index">
+        <div class="breadcrumb">
+          <ol>
+            <li>
+              <a href="/">
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="/register">
+                <span>Register</span>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- main -->
+  <div id="wrapper-site">
+    <div class="container">
+      <div class="row">
+        <div id="content-wrapper" class="col-12 onecol">
+          <div id="main">
+            <div
+              id="content"
+              class="page-content card shadow-lg p-4 mb-5 bg-body rounded"
+            >
+              <div class="register-form text-center">
+                <h1 class="text-center title-page">Create Account</h1>
+                <form
+                  action="#"
+                  id="register-customer-form"
+                  class="js-customer-form"
+                  method="post"
+                >
+                  <div>
+                    <div class="form-group">
+                      <div>
+                        <input
+                          class="form-control"
+                          name="firstName"
+                          type="text"
+                          placeholder="First name"
+                        />
+                        <div
+                          class="invalid-feedback text-left"
+                          id="firstName-error"
+                        ></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <input
+                          class="form-control"
+                          name="lastName"
+                          type="text"
+                          placeholder="Last name"
+                        />
+                        <div
+                          class="invalid-feedback text-left"
+                          id="lastName-error"
+                        ></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <input
+                          class="form-control"
+                          name="email"
+                          type="email"
+                          placeholder="Email"
+                        />
+                        <div
+                          class="invalid-feedback text-left"
+                          id="email-error"
+                        ></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <div class="input-group js-parent-focus">
+                          <input
+                            class="form-control js-child-focus js-visible-password"
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                          />
+                          <div
+                            class="invalid-feedback text-left"
+                            id="password-error"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix">
+                    <div>
+                      <button
+                        class="btn btn-primary w-100 w-sm-auto py-2"
+                        data-link-action="sign-up"
+                        type="submit"
+                      >
+                        Create Account
+                      </button>
+                    </div>
+                  </div>
+                  <div class="no-gutters text-md-left text-center">
+                    <div class="forgot-password">
+                      Already have an account?
+                      <a href="/login" rel="nofollow">Login here</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document
+    .getElementById("register-customer-form")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+
+      document.querySelectorAll(".is-invalid").forEach((el) => {
+        el.classList.remove("is-invalid");
+      });
+      document.querySelectorAll(".invalid-feedback").forEach((el) => {
+        el.textContent = "";
+      });
+
+      try {
+        // Disable button during submission
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Creating account...";
+
+        // Get form data
+        const formData = new FormData(form);
+        let data = {};
+        for (let [key, value] of formData.entries()) {
+          data[key] = value;
+        }
+
+        // Send to API
+        const response = await fetch("/api/user/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          showPopup("error", "Error!", "Something went wrong.");
+        }
+
+        if (!response.ok) {
+          if (result.details && typeof result.details === "object") {
+            Object.entries(result.details).forEach(([field, message]) => {
+              const input = form.querySelector(`[name="${field}"]`);
+              const errorElement = document.getElementById(`${field}-error`);
+
+              if (input && errorElement) {
+                input.classList.add("is-invalid");
+                errorElement.textContent = message;
+              }
+            });
+          } else {
+            showPopup("error", "Error!", result.error || "Registration failed");
+          }
+          return;
+        }
+        showPopup("success", "Registration Successful!", "Your account has been created successfully. You can now log in to access your dashboard.", { 
+            link: "/login", 
+            text: "Login Now"
+          });          
+      } catch (error) {
+        console.error("Registration error:", error);
+        showPopup("error", "Error!", error.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    });
+</script>

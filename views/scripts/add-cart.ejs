@@ -1,0 +1,127 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".add-to-cart").forEach((button) => {
+      button.addEventListener("click", async function (e) {
+        e.preventDefault();
+
+        // Skip if already disabled (prevent double clicks)
+        if (this.disabled) return;
+
+        const productId = this.dataset.productId;
+        const quantity = parseInt(this.dataset.quantity) || 1;
+        const clickedButton = this; // Store reference to the clicked button
+
+        try {
+          // Show loading state
+          const icon = this.querySelector("i");
+          const text = this.querySelector("span");
+          const originalText = text?.textContent;
+
+          icon.classList.replace("fa-shopping-cart", "fa-spinner", "fa-spin");
+          if (text) text.textContent = "Adding...";
+          this.style.cursor = "wait";
+
+          const response = await fetch("/api/cart/add", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-Token":
+                document.querySelector('meta[name="csrf-token"]')?.content ||
+                "",
+            },
+            body: JSON.stringify({ productId, quantity }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            // Success - update UI
+            showPopup("success", "Added to Cart", result.message);
+
+            // Disable the clicked button and update its appearance
+            clickedButton.disabled = true;
+            clickedButton.classList.add("added-to-cart");
+            clickedButton.style.cursor = "default";
+            icon.classList.replace("fa-spinner", "fa-check");
+            if (text) text.textContent = "Added to Cart";
+
+            // If this was in a wishlist, remove the item visually
+            const wishlistItem = document.querySelector(
+              `[data-wishlist-id][data-product-id="${productId}"]`
+            );
+            if (wishlistItem) {
+              wishlistItem.closest("tr").remove();
+              updateWishlistEmptyState();
+            }
+
+            // Update cart counter
+            updateCartCounter(
+              result.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+            );
+          } else {
+            if (response.status === 401) {
+              showPopup(
+                "error",
+                "Operation failed",
+                result.message ||
+                  "Something went wrong while adding product to cart",
+                {
+                  link: "/login",
+                  text: "Login Now",
+                }
+              );
+            } else {
+              showPopup(
+                "error",
+                "Operation failed",
+                result.message || "Please login to use wishlist"
+              );
+            }
+            // Re-enable button on error
+            clickedButton.disabled = false;
+            clickedButton.style.cursor = "pointer";
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          showPopup("error", "Network Error", "Please try again");
+          // Re-enable button on error
+          clickedButton.disabled = false;
+          clickedButton.style.cursor = "pointer";
+        } finally {
+          // Only reset spinner if not successfully added
+          if (!clickedButton.classList.contains("added-to-cart")) {
+            const icon = clickedButton.querySelector("i");
+            icon?.classList.replace("fa-spinner", "fa-shopping-cart");
+            const text = clickedButton.querySelector("span");
+            if (text && originalText) text.textContent = originalText;
+            clickedButton.style.cursor = "pointer";
+          }
+        }
+      });
+    });
+  });
+
+  function updateCartCounter(count) {
+    const counter = document.querySelector(".cart-products-count");
+    if (counter) {
+      counter.textContent = count;
+      counter.style.display = count > 0 ? "inline-block" : "none";
+    }
+  }
+
+  function updateWishlistEmptyState() {
+    const tbody = document.querySelector(".wishlist-table tbody");
+    if (tbody && tbody.querySelectorAll("tr").length === 0) {
+      tbody.innerHTML = `
+            <tr class="empty-wishlist">
+              <td colspan="5" class="text-center py-5">
+                <i class="far fa-heart fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">Your wishlist is empty</h4>
+                <a href="/products" class="btn btn-primary mt-3">Browse Products</a>
+              </td>
+            </tr>
+          `;
+    }
+  }
+</script>

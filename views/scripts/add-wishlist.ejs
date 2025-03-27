@@ -1,0 +1,77 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".addToWishlist").forEach((button) => {
+      button.addEventListener("click", async function (e) {
+        e.preventDefault();
+        const productId = this.dataset.productId;
+        const isWishlisted = this.dataset.wishlisted === "true";
+
+        try {
+          const response = await fetch(
+            "/api/wishlist/" + (isWishlisted ? "remove" : "add"),
+            {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+              },
+              body: JSON.stringify({ productId }),
+            }
+          );
+
+          const result = await response.json();
+
+          if (response.ok) {
+            // Toggle visual state
+            const icon = this.querySelector("i");
+            if (isWishlisted) {
+              this.dataset.wishlisted = "false";
+              icon.classList.remove("fa-heart");
+              icon.classList.add("fa-heart-o");
+            } else {
+              this.dataset.wishlisted = "true";
+              icon.classList.remove("fa-heart-o");
+              icon.classList.add("fa-heart");
+            }
+
+            // Show feedback
+            showPopup(
+              "success",
+              isWishlisted ? "Removed from wishlist" : "Added to wishlist",
+              isWishlisted
+                ? "Item was removed from your wishlist"
+                : "Item was added to your wishlist"
+            );
+          } else {
+            if (response.status === 401) {
+              showPopup(
+                "error",
+                "Operation failed",
+                result.message ||
+                  "Something went wrong while adding product to wishlist",
+                {
+                  link: "/login",
+                  text: "Login Now",
+                }
+              );
+            } else {
+              showPopup(
+                "error",
+                "Operation failed",
+                "Please login to use wishlist"
+              );
+            }
+          }
+        } catch (err) {
+          console.error("Wishlist error:", err);
+          showPopup(
+            "error",
+            "Operation failed",
+            err.message || "Please login to use wishlist"
+          );
+        }
+      });
+    });
+  });
+</script>

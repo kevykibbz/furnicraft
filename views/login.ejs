@@ -1,0 +1,170 @@
+<section>
+  <div class="wrap-banner">
+    <!-- breadcrumb -->
+    <nav class="breadcrumb-bg">
+      <div class="container no-index">
+        <div class="breadcrumb">
+          <ol>
+            <li>
+              <a href="/">
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="/login">
+                <span>Login</span>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- main -->
+  <div id="wrapper-site">
+    <div id="content-wrapper " class="full-width">
+      <div id="main">
+        <div class="container card shadow-lg bg-body rounded">
+         <div class="row mx-3 mx-md-5 my-4">
+          <div class="col-12">
+            <h1 class="text-center title-page">Log In</h1>
+            <% if (success_msg && success_msg.length > 0) { %>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <%= success_msg %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <% } %>
+              
+              <% if (error_msg && error_msg.length > 0) { %>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <%= error_msg %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <% } %>
+            <div class="login-form">
+              <form id="login-form">
+                <div>
+                  <input type="hidden" name="back" value="my-account" />
+                  <div class="form-group no-gutters">
+                    <input
+                      class="form-control"
+                      name="email"
+                      type="email"
+                      id="email"
+                      placeholder=" Email"
+                    />
+                  </div>
+                  <div class="form-group no-gutters">
+                    <div class="input-group js-parent-focus">
+                      <input
+                        class="form-control js-child-focus js-visible-password"
+                        name="password"
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                      />
+                    </div>
+                  </div>
+                  <div class="no-gutters text-md-left text-center">
+                    <div class="forgot-password">
+                      <a href="/user-reset-password" rel="nofollow">
+                        Forgot your password?</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix">
+                  <div class="text-center no-gutters">
+                    <input type="hidden" name="submitLogin" value="1" />
+                    <button
+                      class="btn btn-primary w-100 w-sm-auto py-2"
+                      data-link-action="sign-in"
+                      id="login-btn"
+                      type="submit"
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("login-form");
+    const loginBtn = document.getElementById("login-btn");
+    const messageDiv = document.getElementById("login-message");
+
+    if (loginForm) {
+      loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // Get form values
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // Disable button and show loading state
+        loginBtn.disabled = true;
+        loginBtn.innerHTML =
+          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Signing in...';
+
+        try {
+          // Send login request
+          const response = await fetch("/api/user/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            // Login successful
+            showPopup("success", "Login Successful", "You are now being logged in...");
+            const redirectTo =new URLSearchParams(window.location.search).get("redirect") || "/user-acount";
+            setTimeout(()=>{
+                window.location.href = redirectTo;
+            },1500)
+          } else {
+            // Login failed
+            showPopup("error", "Login Failed", data.error || "Invalid email or password");
+
+          }
+        } catch (error) {
+          showPopup("error", "Error", "An error occurred. Please try again.");
+
+        } finally {
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Sign in";
+        }
+      });
+    }
+
+    // Function to check authentication status on page load
+    async function checkAuthStatus() {
+      try {
+        const response = await fetch("/api/user/check-auth");
+        const data = await response.json();
+
+        if (data.isAuthenticated) {
+          // User is already logged in, redirect to account page
+          window.location.href = "/my-account";
+        }
+      } catch (error) {
+        console.error("Error checking auth status:", error);
+      }
+    }
+
+    // Check auth status when page loads
+    checkAuthStatus();
+  });
+</script>

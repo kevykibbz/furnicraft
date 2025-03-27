@@ -1,0 +1,368 @@
+<div class="form-box">
+    <form id="product-form" enctype="multipart/form-data">
+      <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+  
+      <!-- Basic Information Section -->
+      <div class="card mb-4">
+        <div class="card-header">Basic Information</div>
+        <div class="card-body">
+          <!-- Product Name -->
+          <div class="form-group mb-3">
+            <label for="product-name">Product Name *</label>
+            <input type="text" class="form-control" id="product-name" name="name" required />
+            <span id="product-name-error" class="text-danger"></span>
+          </div>
+  
+          <!-- SKU -->
+          <div class="form-group mb-3">
+            <label for="product-sku">SKU *</label>
+            <input type="text" class="form-control" id="product-sku" name="SKU" required />
+            <span id="product-sku-error" class="text-danger"></span>
+          </div>
+  
+          <!-- Description -->
+          <div class="form-group mb-3">
+            <label for="product-description">Description *</label>
+            <textarea class="form-control" id="product-description" name="description" rows="3" required></textarea>
+            <span id="product-description-error" class="text-danger"></span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Pricing Section -->
+      <div class="card mb-4">
+        <div class="card-header">Pricing</div>
+        <div class="card-body">
+          <!-- Price -->
+          <div class="form-group mb-3">
+            <label for="product-price">Price *</label>
+            <div class="input-group">
+              <span class="input-group-text">£</span>
+              <input type="number" step="0.01" class="form-control" id="product-price" name="price" min="0" required />
+            </div>
+            <span id="product-price-error" class="text-danger"></span>
+          </div>
+  
+          <!-- Discount Price -->
+          <div class="form-group mb-3">
+            <label for="product-discount-price">Discount Price</label>
+            <div class="input-group">
+              <span class="input-group-text">£</span>
+              <input type="number" step="0.01" class="form-control" id="product-discount-price" name="discountPrice" min="0" />
+            </div>
+            <span id="product-discount-price-error" class="text-danger"></span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Inventory Section -->
+      <div class="card mb-4">
+        <div class="card-header">Inventory</div>
+        <div class="card-body">
+          <!-- Stock Status -->
+          <div class="form-group mb-3">
+            <label for="product-stock-status">Stock Status *</label>
+            <select class="form-control" id="product-stock-status" name="stockStatus" required>
+              <option value="in-stock">In Stock</option>
+              <option value="out-of-stock">Out of Stock</option>
+              <option value="pre-order">Pre-Order</option>
+              <option value="backorder">Backorder</option>
+            </select>
+            <span id="product-stock-status-error" class="text-danger"></span>
+          </div>
+  
+          <!-- Stock Quantity -->
+          <div class="form-group mb-3">
+            <label for="product-stock-quantity">Stock Quantity</label>
+            <input type="number" class="form-control" id="product-stock-quantity" name="stockQuantity" min="0" value="0" />
+            <span id="product-stock-quantity-error" class="text-danger"></span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Variants Section -->
+      <div class="card mb-4">
+        <div class="card-header">Variants</div>
+        <div class="card-body">
+          <!-- Sizes -->
+          <div class="form-group mb-3">
+            <label>Sizes</label>
+            <div id="size-container">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control" name="sizes[0][name]" placeholder="Size (e.g., S, M, L)" />
+                <input type="number" class="form-control" name="sizes[0][stock]" placeholder="Stock" min="0" />
+                <button type="button" class="btn btn-outline-danger remove-size">×</button>
+              </div>
+            </div>
+            <button type="button" id="add-size" class="btn btn-sm btn-outline-secondary mt-2">Add Size</button>
+          </div>
+  
+          <!-- Colors -->
+          <div class="form-group mb-3">
+            <label>Colors</label>
+            <div id="color-container">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control" name="colors[0][name]" placeholder="Color name" />
+                <input type="color" class="form-control-color" name="colors[0][hexCode]" title="Choose color" />
+                <input type="number" class="form-control" name="colors[0][stock]" placeholder="Stock" min="0" />
+                <button type="button" class="btn btn-outline-danger remove-color">×</button>
+              </div>
+            </div>
+            <button type="button" id="add-color" class="btn btn-sm btn-outline-secondary mt-2">Add Color</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Categorization Section -->
+      <div class="card mb-4">
+        <div class="card-header">Categorization</div>
+        <div class="card-body">
+          <!-- Main Category -->
+          <div class="form-group mb-3">
+            <label for="main-category">Main Category *</label>
+            <select class="form-control" id="main-category" name="mainCategory" required>
+              <option value="">Select main category</option>
+              <% categories.forEach(category => { %>
+                <option value="<%= category._id %>"><%= category.name %></option>
+              <% }); %>
+            </select>
+            <span id="main-category-error" class="text-danger"></span>
+          </div>
+  
+          <!-- Sub Category -->
+          <div class="form-group mb-3">
+            <label for="sub-category">Sub Category *</label>
+            <select class="form-control" id="sub-category" name="subCategory" required>
+              <option value="">Select sub category</option>
+              <!-- Will be populated via JavaScript based on main category selection -->
+            </select>
+            <span id="sub-category-error" class="text-danger"></span>
+          </div>
+  
+          <!-- Marketing Categories -->
+          <div class="form-group mb-3">
+            <label for="marketing-categories">Marketing Categories</label>
+            <select class="form-control" id="marketing-categories" name="marketingCategories" multiple>
+              <option value="new-arrivals">New Arrivals</option>
+              <option value="best-sellers">Best Sellers</option>
+              <option value="special-products">Special Products</option>
+            </select>
+            <span id="marketing-categories-error" class="text-danger"></span>
+          </div>
+  
+          <!-- Tags -->
+          <div class="form-group mb-3">
+            <label for="product-tags">Tags</label>
+            <input type="text" class="form-control" id="product-tags" name="tags" placeholder="Comma separated tags" />
+            <span id="product-tags-error" class="text-danger"></span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Media Section -->
+      <div class="card mb-4">
+        <div class="card-header">Media</div>
+        <div class="card-body">
+          <!-- Product Images -->
+          <div class="form-group mb-3">
+            <label for="product-images">Product Images *</label>
+            <input type="file" class="form-control" id="product-images" name="images" accept="image/*" multiple required />
+            <small class="form-text text-muted">First image will be used as primary</small>
+            <span id="product-images-error" class="text-danger"></span>
+          </div>
+  
+          <!-- Image Preview -->
+          <div class="form-group mb-3">
+            <label>Image Preview</label>
+            <div id="image-preview" class="d-flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Flags Section -->
+      <div class="card mb-4">
+        <div class="card-header">Flags</div>
+        <div class="card-body">
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="is-featured" name="isFeatured" />
+            <label class="form-check-label" for="is-featured">Featured Product</label>
+          </div>
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="is-active" name="isActive" checked />
+            <label class="form-check-label" for="is-active">Active Product</label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <div class="form-footer">
+        <button type="submit" id="add-product-btn" class="btn btn-primary">
+          <span>ADD PRODUCT</span>
+          <i class="icon-long-arrow-right"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+  // Dynamic size and color addition
+  document.addEventListener('DOMContentLoaded', function() {
+    // Size management
+    let sizeIndex = 1;
+    document.getElementById('add-size').addEventListener('click', function() {
+      const container = document.getElementById('size-container');
+      const div = document.createElement('div');
+      div.className = 'input-group mb-2';
+      div.innerHTML = `
+        <input type="text" class="form-control" name="sizes[${sizeIndex}][name]" placeholder="Size" />
+        <input type="number" class="form-control" name="sizes[${sizeIndex}][stock]" placeholder="Stock" min="0" />
+        <button type="button" class="btn btn-outline-danger remove-size">×</button>
+      `;
+      container.appendChild(div);
+      sizeIndex++;
+    });
+  
+    // Color management
+    let colorIndex = 1;
+    document.getElementById('add-color').addEventListener('click', function() {
+      const container = document.getElementById('color-container');
+      const div = document.createElement('div');
+      div.className = 'input-group mb-2';
+      div.innerHTML = `
+        <input type="text" class="form-control" name="colors[${colorIndex}][name]" placeholder="Color name" />
+        <input type="color" class="form-control-color" name="colors[${colorIndex}][hexCode]" title="Choose color" />
+        <input type="number" class="form-control" name="colors[${colorIndex}][stock]" placeholder="Stock" min="0" />
+        <button type="button" class="btn btn-outline-danger remove-color">×</button>
+      `;
+      container.appendChild(div);
+      colorIndex++;
+    });
+  
+    // Delegated event listeners for remove buttons
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('remove-size')) {
+        e.target.parentElement.remove();
+      }
+      if (e.target.classList.contains('remove-color')) {
+        e.target.parentElement.remove();
+      }
+    });
+  
+    // Image preview
+    document.getElementById('product-images').addEventListener('change', function(e) {
+      const preview = document.getElementById('image-preview');
+      preview.innerHTML = '';
+      Array.from(e.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const img = document.createElement('img');
+          img.src = event.target.result;
+          img.className = 'img-thumbnail';
+          img.style.maxWidth = '100px';
+          img.style.maxHeight = '100px';
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  
+    // Sub-category population based on main category
+    document.getElementById('main-category').addEventListener('change', function() {
+      // You would typically fetch subcategories via AJAX here
+      console.log('Main category changed, would fetch subcategories for:', this.value);
+    });
+  });
+  </script>
+  <script>
+    document.getElementById('product-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const form = e.target;
+        const formData = new FormData(form);
+        const submitBtn = document.getElementById('add-product-btn');
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...';
+        
+        try {
+          const response = await fetch('/api/products/add', {
+            method: 'POST',
+            credentials:"include",
+            body: formData,
+          });
+          
+          const data = await response.json();
+          
+          if (!response.ok) {
+            throw new Error(data.message || 'Failed to add product');
+          }
+          
+          // Success - show message and reset form
+          showPopup("success", "New product added!", "Product was added successfully!");
+
+          form.reset();
+          document.getElementById('image-preview').innerHTML = '';
+        setTimeout(()=>{
+            window.location.href = '/';
+          },1500)
+          
+        } catch (error) {
+          console.error('Error:', error);
+          showPopup("error", "Uknown error ocurred",  error.message || 'Failed to add product');
+
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>ADD PRODUCT</span><i class="icon-long-arrow-right"></i>';
+        }
+      });
+      
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mainCategorySelect = document.getElementById('main-category');
+        const subCategorySelect = document.getElementById('sub-category');
+      
+        if (mainCategorySelect && subCategorySelect) {
+          mainCategorySelect.addEventListener('change', async function() {
+            const categoryId = this.value;
+            
+            if (!categoryId) {
+              subCategorySelect.innerHTML = '<option value="">Select sub category</option>';
+              return;
+            }
+      
+            // Show loading state
+            subCategorySelect.disabled = true;
+            subCategorySelect.innerHTML = '<option value="">Loading subcategories...</option>';
+      
+            try {
+              const response = await fetch(`/api/categories/${categoryId}/subcategories`);
+              
+              if (!response.ok) {
+                throw new Error('Failed to fetch subcategories');
+              }
+      
+              const subCategories = await response.json();
+      
+              // Populate subcategories
+              if (subCategories.length > 0) {
+                subCategorySelect.innerHTML = '<option value="">Select sub category</option>';
+                subCategories.forEach(subCat => {
+                  const option = document.createElement('option');
+                  option.value = subCat._id;
+                  option.textContent = subCat.name;
+                  subCategorySelect.appendChild(option);
+                });
+              } else {
+                subCategorySelect.innerHTML = '<option value="">No subcategories found</option>';
+              }
+            } catch (error) {
+              console.error('Error:', error);
+              subCategorySelect.innerHTML = '<option value="">Error loading subcategories</option>';
+            } finally {
+              subCategorySelect.disabled = false;
+            }
+          });
+        }
+      });
+  </script>

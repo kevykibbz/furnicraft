@@ -1,0 +1,1931 @@
+<section>
+    <div class="wrap-banner">
+        <!-- menu category -->
+        <div class="container position">
+            <div class="section menu-banner d-xs-none">
+                <div class="tiva-verticalmenu block">
+                    <div class="box-content">
+                        <% if ( typeof categories !== "undefined" && categories.length > 0) { %>
+                            <div class="verticalmenu" role="navigation">
+                                <ul class="menu level1">
+                                    <% categories.slice(0,10).forEach(category => { %>
+                                        <li class="item parent">
+                                            <a href="#" class="hasicon" title="<%= category.name %>">
+                                                <img src="<%= category.image %>" loading="lazy" alt="<%= category.name %>"><%= category.name %>
+                                            </a>
+                                            <% if (category.subCategories.length > 0) { %>
+                                                <div class="dropdown-menu">
+                                                    <div class="menu-items">
+                                                        <ul>
+                                                            <% category.subCategories.forEach(subCategory => { %>
+                                                            <li class="item">
+                                                                <a href="#" title="<%= subCategory.name %>"><%= subCategory.name %></a>
+                                                                <% if (subCategory.subCategories.length > 0) { %>
+                                                                    <div class="dropdown-menu">
+                                                                        <div class="menu-items">
+                                                                            <ul>
+                                                                                <% subCategory.subCategories.forEach(subCategory1 => { %>
+                                                                                <li class="item">
+                                                                                    <a href="#" title="<%= subCategory1.name %>"><%= subCategory1.name %></a>
+                                                                                </li>
+                                                                                <% }) %>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                <% } %>
+                                                            </li>
+                                                            <% }) %>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            <% } %>
+                                        </li>
+                                    <% }) %>
+                                    <% if (categories.length > 10) { %>
+                                        <li class="more item">Show More</li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- slide show -->
+        <div class="section banner">
+            <div class="tiva-slideshow-wrapper">
+                <div id="tiva-slideshow" class="nivoSlider">
+                    <a href="#">
+                        <img class="img-responsive" src="/img/home/home1-banner1.jpg" title="#caption1" alt="Slideshow image">
+                    </a>
+                    <a href="#">
+                        <img class="img-responsive" src="/img/home/home1-banner2.jpg" title="#caption2" alt="Slideshow image">
+                    </a>
+                    <a href="#">
+                        <img class="img-responsive" src="/img/home/home1-banner3.jpg" title="#caption3" alt="Slideshow image">
+                    </a>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <!-- main -->
+    <div id="wrapper-site">
+        <div id="content-wrapper" class="full-width">
+            <div id="main">
+                <section class="page-home">
+                    <div class="container">
+                         <!-- delivery form -->
+                        <div class="section policy-home col-lg-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="block">
+                                        <div class="block-content">
+                                            <div class="policy-item">
+                                                <div class="policy-content iconpolicy1">
+                                                    <img src="/img/home/home1-policy.png" alt="Free Delivery" loading="lazy">
+                                                    <div class="policy-name mb-5">FREE DELIVERY FROM $250</div>
+                                                    <div class="policy-des">Get your order delivered free when you spend $250 or more on any furniture items</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tiva-html col-lg-4 col-md-4">
+                                    <div class="block">
+                                        <div class="block-content">
+                                            <div class="policy-item">
+                                                <div class="policy-content iconpolicy2">
+                                                    <img src="/img/home/home1-policy2.png" alt="Free Installation" loading="lazy">
+                                                    <div class="policy-name mb-5">FREE ASSEMBLY SERVICE</div>
+                                                    <div class="policy-des">Our experts will assemble your furniture at no extra cost</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tiva-html col-lg-4 col-md-4">
+                                    <div class="block">
+                                        <div class="block-content">
+                                            <div class="policy-item">
+                                                <div class="policy-content iconpolicy3">
+                                                    <img src="/img/home/home1-policy3.png" alt="Money Back Guarantee" loading="lazy">
+                                                    <div class="policy-name mb-5">30-DAY SATISFACTION GUARANTEE</div>
+                                                    <div class="policy-des">Not happy with your purchase? Return it within 30 days for a full refund</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% const livingRoom = categories.find(cat => cat.slug === 'living-room'); %>
+                    <% if (livingRoom && livingRoom.subCategories) { %> 
+                        <div class="section living-room">
+                            <div class="container">
+                                <div class="tiva-row-wrap row">
+                                    <div class="groupcategoriestab-vertical col-md-12 col-xs-12">
+                                        <div class="grouptab row">
+                                            <div class="categoriestab-right col-lg-3 align-items-start d-flex flex-column col-md-3 flex-3">
+                                                <div class="block-title-content">
+                                                    <h2 class="title-block"><%= livingRoom.name %></h2>
+                                                </div>
+                                                <div class="cate-child-vertical">
+                                                    <ul class="d-flex align-items-start flex-column">
+                                                        <% livingRoom.subCategories.slice(0,6).forEach(subCat => { %>
+                                                            <li>
+                                                                <a href="/category/<%= subCat.slug %>"><%= subCat.name %></a>
+                                                            </li>
+                                                        <% }); %>
+                                                        <% if ( livingRoom.subCategories.length > 6) { %>
+                                                            <li class="last float-right">
+                                                                <a href="/products">View All</a>
+                                                            </li>
+                                                        <% } %>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="categoriestab-left product-tab col-md-9 flex-9">
+                                                <div class="title-tab-content d-flex justify-content-start">
+                                                    <ul class="nav nav-tabs">
+                                                        <li>
+                                                            <a href="#new" data-toggle="tab" class="active">New Arrivals</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#best" data-toggle="tab">Best Sellers</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#sale" data-toggle="tab">Special Products</a>
+                                                        </li>
+                                                        <% if (isAuthenticated && user.role === "admin") { %>
+                                                            <li>
+                                                                <a href="#add" data-toggle="tab">Add Product</a>
+                                                            </li>
+                                                        <% } %>
+                                                    </ul>                                           
+                                                </div>
+                                        
+
+                                                <div class="tab-content">
+                                                    <% if (livingRoomProducts.newArrivals.length > 0) { %>
+                                                        <div id="new" class="tab-pane fade in active show">
+                                                            <div class="category-product-index owl-carousel owl-theme owl-loaded owl-drag">
+                                                                <% livingRoomProducts.newArrivals.forEach(newArrivalItem => { %>
+                                                                    <div class="item text-center">
+                                                                        <div class="product-miniature first-item js-product-miniature item-one">
+                                                                            <div class="thumbnail-container">
+                                                                                <a href="/product/<%= newArrivalItem._id %>">
+                                                                                    <% if (newArrivalItem.images && newArrivalItem.images.length > 0) { %>
+                                                                                        <% // Sort images with isPrimary first 
+                                                                                        const sortedImages = [...newArrivalItem.images].sort((a, b) => 
+                                                                                        (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+                                                                                        ); %>
+                                                                                        
+                                                                                        <% // Display primary image first
+                                                                                        const primaryImage = sortedImages[0]; %>
+                                                                                        <img class="img-fluid image-cover" 
+                                                                                            src="<%= primaryImage.url %>" 
+                                                                                            alt="<%= primaryImage.altText || newArrivalItem.name %>" 
+                                                                                            loading="lazy">
+                                                                                        
+                                                                                        <% // Optionally display secondary images with different classes
+                                                                                        if (sortedImages.length > 1) { %>
+                                                                                        <img class="img-fluid image-secondary" 
+                                                                                                src="<%= sortedImages[1].url %>" 
+                                                                                                alt="<%= sortedImages[1].altText || newArrivalItem.name %>" 
+                                                                                                loading="lazy">
+                                                                                        <% } %>
+                                                                                    <% } else { %>
+                                                                                        <!-- Fallback image if no images exist -->
+                                                                                        <img class="img-fluid image-cover" 
+                                                                                            src="/img/placeholder.jpg" 
+                                                                                            alt="<%= newArrivalItem.name %>" 
+                                                                                            loading="lazy">
+                                                                                    <% } %>
+                                                                                    </a>
+                                                                                <% if (newArrivalItem.discountPercentage) { %>
+                                                                                    <div class="product-flags discount">-<%= newArrivalItem.discountPercentage %>%</div>
+                                                                                <% } %>
+                                                                                <div class="highlighted-informations">
+                                                                                    <% if (newArrivalItem.colors && newArrivalItem.colors.length > 0) { %>
+                                                                                        <div class="variant-links">
+                                                                                        <% newArrivalItem.colors.forEach(color => { %>
+                                                                                            <a href="#" 
+                                                                                                class="color <%= color.name.toLowerCase() %>" 
+                                                                                                title="<%= color.name %>"
+                                                                                                style="background-color: <%= color.hexCode %>;"
+                                                                                                data-color="<%= color.name %>">
+                                                                                            </a>
+                                                                                        <% }); %>
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                    </div>
+                                                                            </div>
+                                                                            <div class="product-description">
+                                                                                <div class="product-groups">
+                                                                                    <div class="product-title">
+                                                                                        <a href="/product/<%= newArrivalItem._id %>"><%= newArrivalItem.name %></a>
+                                                                                    </div>
+                                                                                    <div class="rating">
+                                                                                        <div class="star-content">
+                                                                                            <% const rating = newArrivalItem.averageRating || 0; %>
+                                                                                            <% const fullStars = Math.floor(rating); %>
+                                                                                            <% const hasHalfStar = rating % 1 >= 0.5; %>
+                                                                                            <% const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); %>
+                                                                                            
+                                                                                            <!-- Full stars -->
+                                                                                            <% for (let i = 0; i < fullStars; i++) { %>
+                                                                                            <div class="star full"></div>
+                                                                                            <% } %>
+                                                                                            
+                                                                                            <!-- Half star -->
+                                                                                            <% if (hasHalfStar) { %>
+                                                                                            <div class="star half"></div>
+                                                                                            <% } %>
+                                                                                            
+                                                                                            <!-- Empty stars -->
+                                                                                            <% for (let i = 0; i < emptyStars; i++) { %>
+                                                                                            <div class="star empty"></div>
+                                                                                            <% } %>
+                                                                                        </div>
+                                                                                        <% if (newArrivalItem.reviewCount) { %>
+                                                                                            <span class="review-count">(<%= newArrivalItem.reviewCount %>)</span>
+                                                                                        <% } %>
+                                                                                        </div>
+                                                                                    <div class="product-group-price">
+                                                                                        <div class="product-price-and-shipping">
+                                                                                            <% if (newArrivalItem.discountPrice && newArrivalItem.discountPrice < newArrivalItem.price) { %>
+                                                                                                <span class="price">£<%= newArrivalItem.discountPrice.toFixed(2) %></span>
+                                                                                                <del class="regular-price">£<%= newArrivalItem.price.toFixed(2) %></del>
+                                                                                            <% } else { %>
+                                                                                                <span class="price">£<%= newArrivalItem.price.toFixed(2) %></span>
+                                                                                            <% } %>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-buttons d-flex justify-content-center">
+                                                                                    <form action="#" method="post" class="formAddToCart">
+                                                                                        <input type="hidden" name="id_product" value="1">
+                                                                                        <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </form>
+                                                                                  
+                                                                                    <a class="addToWishlist" 
+                                                                                        href="#" 
+                                                                                        data-product-id="<%= newArrivalItem._id %>"
+                                                                                        data-wishlisted="<%= isAuthenticated && wishlist.includes(newArrivalItem._id.toString()) ? 'true' : 'false' %>"
+                                                                                        title="<%= isAuthenticated ? (wishlist.includes(newArrivalItem._id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist') : 'Login to add to wishlist' %>">
+                                                                                        
+                                                                                        <i class="fa <%= isAuthenticated && wishlist.includes(newArrivalItem._id.toString()) ? 'fa-heart' : 'fa-heart-o' %>"></i>
+                                                                                    </a>
+                                                                                    <a href="/product/<%= newArrivalItem._id %>" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <% }) %>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                    
+                                                    <% if (livingRoomProducts.bestSellers.length > 0) { %>
+                                                        <div id="best" class="tab-pane fade">
+                                                            <div class="category-product-index owl-carousel owl-theme owl-loaded owl-drag">
+                                                                <% livingRoomProducts.bestSellers.forEach(newBestSellerlItem => { %>
+                                                                    <div class="item text-center">
+                                                                        <div class="product-miniature first-item js-product-miniature item-one">
+                                                                            <div class="thumbnail-container">
+                                                                                <a href="/product/<%= newBestSellerlItem._id %>">
+                                                                                    <% if (newBestSellerlItem.images && newBestSellerlItem.images.length > 0) { %>
+                                                                                        <% // Sort images with isPrimary first 
+                                                                                        const sortedImages = [...newBestSellerlItem.images].sort((a, b) => 
+                                                                                        (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+                                                                                        ); %>
+                                                                                        
+                                                                                        <% // Display primary image first
+                                                                                        const primaryImage = sortedImages[0]; %>
+                                                                                        <img class="img-fluid image-cover" 
+                                                                                            src="<%= primaryImage.url %>" 
+                                                                                            alt="<%= primaryImage.altText || newBestSellerlItem.name %>" 
+                                                                                            loading="lazy">
+                                                                                        
+                                                                                        <% // Optionally display secondary images with different classes
+                                                                                        if (sortedImages.length > 1) { %>
+                                                                                        <img class="img-fluid image-secondary" 
+                                                                                                src="<%= sortedImages[1].url %>" 
+                                                                                                alt="<%= sortedImages[1].altText || newBestSellerlItem.name %>" 
+                                                                                                loading="lazy">
+                                                                                        <% } %>
+                                                                                    <% } else { %>
+                                                                                        <!-- Fallback image if no images exist -->
+                                                                                        <img class="img-fluid image-cover" 
+                                                                                            src="/img/placeholder.jpg" 
+                                                                                            alt="<%= newBestSellerlItem.name %>" 
+                                                                                            loading="lazy">
+                                                                                    <% } %>
+                                                                                    </a>
+                                                                                <% if (newBestSellerlItem.discountPercentage) { %>
+                                                                                    <div class="product-flags discount">-<%= newBestSellerlItem.discountPercentage %>%</div>
+                                                                                <% } %>
+                                                                                <div class="highlighted-informations">
+                                                                                    <% if (newBestSellerlItem.colors && newBestSellerlItem.colors.length > 0) { %>
+                                                                                        <div class="variant-links">
+                                                                                        <% newBestSellerlItem.colors.forEach(color => { %>
+                                                                                            <a href="#" 
+                                                                                                class="color <%= color.name.toLowerCase() %>" 
+                                                                                                title="<%= color.name %>"
+                                                                                                style="background-color: <%= color.hexCode %>;"
+                                                                                                data-color="<%= color.name %>">
+                                                                                            </a>
+                                                                                        <% }); %>
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                    </div>
+                                                                            </div>
+                                                                            <div class="product-description">
+                                                                                <div class="product-groups">
+                                                                                    <div class="product-title">
+                                                                                        <a href="/product/<%= newBestSellerlItem._id %>"><%= newBestSellerlItem.name %></a>
+                                                                                    </div>
+                                                                                    <div class="rating">
+                                                                                        <div class="star-content">
+                                                                                            <% const rating = newBestSellerlItem.averageRating || 0; %>
+                                                                                            <% const fullStars = Math.floor(rating); %>
+                                                                                            <% const hasHalfStar = rating % 1 >= 0.5; %>
+                                                                                            <% const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); %>
+                                                                                            
+                                                                                            <!-- Full stars -->
+                                                                                            <% for (let i = 0; i < fullStars; i++) { %>
+                                                                                            <div class="star full"></div>
+                                                                                            <% } %>
+                                                                                            
+                                                                                            <!-- Half star -->
+                                                                                            <% if (hasHalfStar) { %>
+                                                                                            <div class="star half"></div>
+                                                                                            <% } %>
+                                                                                            
+                                                                                            <!-- Empty stars -->
+                                                                                            <% for (let i = 0; i < emptyStars; i++) { %>
+                                                                                            <div class="star empty"></div>
+                                                                                            <% } %>
+                                                                                        </div>
+                                                                                        <% if (newBestSellerlItem.reviewCount) { %>
+                                                                                            <span class="review-count">(<%= newBestSellerlItem.reviewCount %>)</span>
+                                                                                        <% } %>
+                                                                                        </div>
+                                                                                    <div class="product-group-price">
+                                                                                        <div class="product-price-and-shipping">
+                                                                                            <% if (newBestSellerlItem.discountPrice && newBestSellerlItem.discountPrice < newBestSellerlItem.price) { %>
+                                                                                                <span class="price">£<%= newBestSellerlItem.discountPrice.toFixed(2) %></span>
+                                                                                                <del class="regular-price">£<%= newBestSellerlItem.price.toFixed(2) %></del>
+                                                                                            <% } else { %>
+                                                                                                <span class="price">£<%= newBestSellerlItem.price.toFixed(2) %></span>
+                                                                                            <% } %>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-buttons d-flex justify-content-center">
+                                                                                    <form action="#" method="post" class="formAddToCart">
+                                                                                        <input type="hidden" name="id_product" value="1">
+                                                                                        <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </form>
+                                                                                   
+                                                                                    <a class="addToWishlist" 
+                                                                                        href="#" 
+                                                                                        data-product-id="<%= newBestSellerlItem._id %>"
+                                                                                        data-wishlisted="<%= isAuthenticated && wishlist.includes(newBestSellerlItem._id.toString()) ? 'true' : 'false' %>"
+                                                                                        title="<%= isAuthenticated ? (wishlist.includes(newBestSellerlItem._id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist') : 'Login to add to wishlist' %>">
+                                                                                        
+                                                                                        <i class="fa <%= isAuthenticated && wishlist.includes(newBestSellerlItem._id.toString()) ? 'fa-heart' : 'fa-heart-o' %>"></i>
+                                                                                    </a>
+                                                                                    <a href="/product/<%= newBestSellerlItem._id %>" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <% }) %>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+
+                                                    <% if (livingRoomProducts.specialProducts.length > 0) { %>
+                                                        <div id="sale" class="tab-pane fade">
+                                                            <div class="category-product-index owl-carousel owl-theme owl-loaded owl-drag">
+                                                                <% livingRoomProducts.specialProducts.forEach(featuredProduct => { %>
+                                                                    <div class="item text-center">
+                                                                        <div class="product-miniature first-item js-product-miniature item-one">
+                                                                            <div class="thumbnail-container">
+                                                                                <a href="/product/<%= featuredProduct._id %>">
+                                                                                    <% if (featuredProduct.images && featuredProduct.images.length > 0) { %>
+                                                                                        <% // Sort images with isPrimary first 
+                                                                                        const sortedImages = [...featuredProduct.images].sort((a, b) => 
+                                                                                        (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+                                                                                        ); %>
+                                                                                        
+                                                                                        <% // Display primary image first
+                                                                                        const primaryImage = sortedImages[0]; %>
+                                                                                        <img class="img-fluid image-cover" 
+                                                                                            src="<%= primaryImage.url %>" 
+                                                                                            alt="<%= primaryImage.altText || featuredProduct.name %>" 
+                                                                                            loading="lazy">
+                                                                                        
+                                                                                        <% // Optionally display secondary images with different classes
+                                                                                        if (sortedImages.length > 1) { %>
+                                                                                        <img class="img-fluid image-secondary" 
+                                                                                                src="<%= sortedImages[1].url %>" 
+                                                                                                alt="<%= sortedImages[1].altText || featuredProduct.name %>" 
+                                                                                                loading="lazy">
+                                                                                        <% } %>
+                                                                                    <% } else { %>
+                                                                                        <!-- Fallback image if no images exist -->
+                                                                                        <img class="img-fluid image-cover" 
+                                                                                            src="/img/placeholder.jpg" 
+                                                                                            alt="<%= featuredProduct.name %>" 
+                                                                                            loading="lazy">
+                                                                                    <% } %>
+                                                                                </a>
+                                                                                <% if (featuredProduct.discountPercentage) { %>
+                                                                                    <div class="product-flags discount">-<%= featuredProduct.discountPercentage %>%</div>
+                                                                                <% } %>
+                                                                                <div class="highlighted-informations">
+                                                                                    <% if (featuredProduct.colors && featuredProduct.colors.length > 0) { %>
+                                                                                        <div class="variant-links">
+                                                                                        <% featuredProduct.colors.forEach(color => { %>
+                                                                                            <a href="#" 
+                                                                                                class="color <%= color.name.toLowerCase() %>" 
+                                                                                                title="<%= color.name %>"
+                                                                                                style="background-color: <%= color.hexCode %>;"
+                                                                                                data-color="<%= color.name %>">
+                                                                                            </a>
+                                                                                        <% }); %>
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                    </div>
+                                                                            </div>
+                                                                            <div class="product-description">
+                                                                                <div class="product-groups">
+                                                                                    <div class="product-title">
+                                                                                        <a href="/product/<%= featuredProduct._id %>"><%= featuredProduct.name %></a>
+                                                                                    </div>
+                                                                                    <div class="rating">
+                                                                                        <div class="star-content">
+                                                                                            <% const rating = featuredProduct.averageRating || 0; %>
+                                                                                            <% const fullStars = Math.floor(rating); %>
+                                                                                            <% const hasHalfStar = rating % 1 >= 0.5; %>
+                                                                                            <% const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); %>
+                                                                                            
+                                                                                            <!-- Full stars -->
+                                                                                            <% for (let i = 0; i < fullStars; i++) { %>
+                                                                                            <div class="star full"></div>
+                                                                                            <% } %>
+                                                                                            
+                                                                                            <!-- Half star -->
+                                                                                            <% if (hasHalfStar) { %>
+                                                                                            <div class="star half"></div>
+                                                                                            <% } %>
+                                                                                            
+                                                                                            <!-- Empty stars -->
+                                                                                            <% for (let i = 0; i < emptyStars; i++) { %>
+                                                                                            <div class="star empty"></div>
+                                                                                            <% } %>
+                                                                                        </div>
+                                                                                        <% if (featuredProduct.reviewCount) { %>
+                                                                                            <span class="review-count">(<%= featuredProduct.reviewCount %>)</span>
+                                                                                        <% } %>
+                                                                                        </div>
+                                                                                    <div class="product-group-price">
+                                                                                        <div class="product-price-and-shipping">
+                                                                                            <% if (featuredProduct.discountPrice && featuredProduct.discountPrice < featuredProduct.price) { %>
+                                                                                                <span class="price">£<%= featuredProduct.discountPrice.toFixed(2) %></span>
+                                                                                                <del class="regular-price">£<%= featuredProduct.price.toFixed(2) %></del>
+                                                                                            <% } else { %>
+                                                                                                <span class="price">£<%= featuredProduct.price.toFixed(2) %></span>
+                                                                                            <% } %>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="product-buttons d-flex justify-content-center">
+                                                                                    <form action="#" method="post" class="formAddToCart">
+                                                                                        <input type="hidden" name="id_product" value="1">
+                                                                                        <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </form>
+                                                                                    <a class="addToWishlist" 
+                                                                                    href="#" 
+                                                                                    data-product-id="<%= featuredProduct._id %>"
+                                                                                    data-wishlisted="<%= isAuthenticated && wishlist.includes(featuredProduct._id.toString()) ? 'true' : 'false' %>"
+                                                                                    title="<%= isAuthenticated ? (wishlist.includes(featuredProduct._id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist') : 'Login to add to wishlist' %>">
+                                                                                    
+                                                                                    <i class="fa <%= isAuthenticated && wishlist.includes(featuredProduct._id.toString()) ? 'fa-heart' : 'fa-heart-o' %>"></i>
+                                                                                </a>
+                                                                                    <a href="/product/<%= featuredProduct._id %>" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <% }) %>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                    <div id="add" class="tab-pane fade">
+                                                        <%- include('partials/add-product') %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <%} %>
+                    <div class="container">
+                        <!-- banner -->
+                        <div class="section spacing-10 group-image-special col-lg-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="effect">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/home/effect1.jpg" alt="banner-1" title="banner-1" loading="lazy">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="effect">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/home/effect2.jpg" alt="banner-2" title="banner-2" loading="lazy">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- best seller -->
+                        <div class="section best-sellers col-lg-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="groupproductlist">
+                                        <div class="row d-flex align-items-center">
+                                            <!-- column 4 -->
+                                            <div class="flex-4 col-lg-4 flex-4">
+                                                <h2 class="title-block">
+                                                    <span class="sub-title">Customer Favorites</span>
+                                                    Best Sellers
+                                                </h2>
+                                                <div class="content-text">
+                                                    <p>
+                                                    Discover our most loved furniture pieces - the timeless designs and exceptional quality 
+                                                    that customers keep coming back for. Each bestseller combines style, comfort, and durability.
+                                                    </p>
+                                                    <div class="view-all">
+                                                    <a href="/all-products" class="btn btn-view-all">
+                                                        <span>Explore Our Collection</span>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- column 8 -->
+                                            <div class="block-content col-lg-8 flex-8">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane fade in active show">
+                                                        <div class="category-product-index owl-carousel owl-theme owl-loaded owl-drag">
+                                                            <div class="item text-center">
+                                                                <div class="product-miniature js-product-miniature item-one first-item">
+                                                                    <div class="thumbnail-container">
+                                                                        <a href="product-detail.html">
+                                                                            <img class="img-fluid image-cover" src="img/product/26.jpg" alt="img">
+                                                                            <img class="img-fluid image-secondary" src="img/product/1.jpg" alt="img">
+                                                                        </a>
+                                                                        <div class="highlighted-informations">
+                                                                            <div class="variant-links">
+                                                                                <a href="#" class="color beige" title="Beige"></a>
+                                                                                <a href="#" class="color orange" title="Orange"></a>
+                                                                                <a href="#" class="color green" title="Green"></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-description">
+                                                                        <div class="product-groups">
+                                                                            <div class="product-title">
+                                                                                <a href="product-detail.html">Nulla et justo non augue</a>
+                                                                            </div>
+                                                                            <div class="product-group-price">
+                                                                                <div class="product-price-and-shipping">
+                                                                                    <span class="price">£20.08</span>
+                                                                                    <del class="regular-price">£28.68</del>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-buttons d-flex justify-content-center">
+                                                                            <form action="#" method="post" class="formAddToCart">
+                                                                                <input type="hidden" name="id_product" value="1">
+                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                </a>
+                                                                            </form>
+                                                                            <a class="addToWishlist" href="#" data-rel="1" onclick="">
+                                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            </a>
+                                                                            <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-miniature js-product-miniature item-one first-item">
+                                                                    <div class="thumbnail-container">
+                                                                        <a href="product-detail.html">
+                                                                            <img class="img-fluid image-cover" src="img/product/25.jpg" alt="img">
+                                                                            <img class="img-fluid image-secondary" src="img/product/2.jpg" alt="img">
+                                                                        </a>
+                                                                        <div class="highlighted-informations">
+                                                                            <div class="variant-links">
+                                                                                <a href="#" class="color beige" title="Beige"></a>
+                                                                                <a href="#" class="color orange" title="Orange"></a>
+                                                                                <a href="#" class="color green" title="Green"></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-description">
+                                                                        <div class="product-groups">
+                                                                            <div class="product-title">
+                                                                                <a href="product-detail.html">Nulla et justo non augue</a>
+                                                                            </div>
+                                                                            <div class="product-group-price">
+                                                                                <div class="product-price-and-shipping">
+                                                                                    <span class="price">£20.08</span>
+                                                                                    <del class="regular-price">£28.68</del>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-buttons d-flex justify-content-center">
+                                                                            <form action="#" method="post" class="formAddToCart">
+
+                                                                                <input type="hidden" name="id_product" value="1">
+                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                </a>
+                                                                            </form>
+                                                                            <a class="addToWishlist" href="#" data-rel="1" onclick="">
+                                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            </a>
+                                                                            <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item text-center">
+                                                                <div class="product-miniature js-product-miniature item-one first-item">
+                                                                    <div class="thumbnail-container">
+                                                                        <a href="product-detail.html">
+                                                                            <img class="img-fluid image-cover" src="img/product/10.jpg" alt="img">
+                                                                            <img class="img-fluid image-secondary" src="img/product/9.jpg" alt="img">
+                                                                        </a>
+                                                                        <div class="highlighted-informations">
+                                                                            <div class="variant-links">
+                                                                                <a href="#" class="color beige" title="Beige"></a>
+                                                                                <a href="#" class="color orange" title="Orange"></a>
+                                                                                <a href="#" class="color green" title="Green"></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-description">
+                                                                        <div class="product-groups">
+                                                                            <div class="product-title">
+                                                                                <a href="product-detail.html">Nulla et justo non augue</a>
+                                                                            </div>
+                                                                            <div class="product-group-price">
+                                                                                <div class="product-price-and-shipping">
+                                                                                    <span class="price">£20.08</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-buttons d-flex justify-content-center">
+                                                                            <form action="#" method="post" class="formAddToCart">
+                                                                                <input type="hidden" name="id_product" value="1">
+                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                </a>
+                                                                            </form>
+                                                                            <a class="addToWishlist" href="#" data-rel="1" onclick="">
+                                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            </a>
+                                                                            <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-miniature js-product-miniature item-one first-item">
+                                                                    <div class="thumbnail-container">
+                                                                        <a href="product-detail.html">
+                                                                            <img class="img-fluid image-cover" src="img/product/3.jpg" alt="img">
+                                                                            <img class="img-fluid image-secondary" src="img/product/9.jpg" alt="img">
+                                                                        </a>
+                                                                        <div class="highlighted-informations">
+                                                                            <div class="variant-links">
+                                                                                <a href="#" class="color beige" title="Beige"></a>
+                                                                                <a href="#" class="color orange" title="Orange"></a>
+                                                                                <a href="#" class="color green" title="Green"></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-description">
+                                                                        <div class="product-groups">
+                                                                            <div class="product-title">
+                                                                                <a href="product-detail.html">Nulla et justo non augue</a>
+                                                                            </div>
+                                                                            <div class="product-group-price">
+                                                                                <div class="product-price-and-shipping">
+                                                                                    <span class="price">£20.08</span>
+                                                                                    <del class="regular-price">£28.68</del>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-buttons d-flex justify-content-center">
+                                                                            <form action="#" method="post" class="formAddToCart">
+                                                                                <input type="hidden" name="id_product" value="1">
+                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                </a>
+                                                                            </form>
+                                                                            <a class="addToWishlist" href="#" data-rel="1" onclick="">
+                                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            </a>
+                                                                            <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item text-center">
+                                                                <div class="product-miniature js-product-miniature item-one first-item">
+                                                                    <div class="thumbnail-container">
+                                                                        <a href="product-detail.html">
+                                                                            <img class="img-fluid image-cover" src="img/product/24.jpg" alt="img">
+                                                                            <img class="img-fluid image-secondary" src="img/product/3.jpg" alt="img">
+                                                                        </a>
+                                                                        <div class="highlighted-informations">
+                                                                            <div class="variant-links">
+                                                                                <a href="#" class="color beige" title="Beige"></a>
+                                                                                <a href="#" class="color orange" title="Orange"></a>
+                                                                                <a href="#" class="color green" title="Green"></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-description">
+                                                                        <div class="product-groups">
+                                                                            <div class="product-title">
+                                                                                <a href="product-detail.html">Nulla et justo non augue</a>
+                                                                            </div>
+                                                                            <div class="product-group-price">
+                                                                                <div class="product-price-and-shipping">
+                                                                                    <span class="price">£20.08</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-buttons d-flex justify-content-center">
+                                                                            <form action="#" method="post" class="formAddToCart">
+                                                                                <input type="hidden" name="id_product" value="1">
+                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                </a>
+                                                                            </form>
+                                                                            <a class="addToWishlist" href="#" data-rel="1" onclick="">
+                                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            </a>
+                                                                            <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-miniature js-product-miniature item-one first-item">
+                                                                    <div class="thumbnail-container">
+                                                                        <a href="product-detail.html">
+                                                                            <img class="img-fluid image-cover" src="img/product/23.jpg" alt="img">
+                                                                            <img class="img-fluid image-secondary" src="img/product/4.jpg" alt="img">
+                                                                        </a>
+                                                                        <div class="highlighted-informations">
+                                                                            <div class="variant-links">
+                                                                                <a href="#" class="color beige" title="Beige"></a>
+                                                                                <a href="#" class="color orange" title="Orange"></a>
+                                                                                <a href="#" class="color green" title="Green"></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-description">
+                                                                        <div class="product-groups">
+                                                                            <div class="product-title">
+                                                                                <a href="product-detail.html">Nulla et justo non augue</a>
+                                                                            </div>
+                                                                            <div class="product-group-price">
+                                                                                <div class="product-price-and-shipping">
+                                                                                    <span class="price">£20.08</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-buttons d-flex justify-content-center">
+                                                                            <form action="#" method="post" class="formAddToCart">
+
+                                                                                <input type="hidden" name="id_product" value="1">
+                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                </a>
+                                                                            </form>
+                                                                            <a class="addToWishlist" href="#" data-rel="1" onclick="">
+                                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            </a>
+                                                                            <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <% const kitchen = categories.find(cat => cat.slug === 'kitchen');%>
+                    <% if (kitchen && kitchen.subCategories) { %> 
+                        <div class="section kitchen">
+                            <div class="living-room">
+                                <div class="container">
+                                    <div class="tiva-row-wrap row">
+                                        <div class="groupcategoriestab-vertical col-md-12 col-xs-12">
+                                            <div class="grouptab row">
+                                                <!-- column 3 -->
+                                                <div class="categoriestab-right col-lg-3 align-items-start d-flex flex-column col-md-3 flex-3">
+                                                    <div class="block-title-content">
+                                                        <h2 class="title-block"><%= kitchen.name %></h2>
+                                                    </div>
+                                                    <div class="cate-child-vertical">
+                                                        <ul class="d-flex align-items-start flex-column">
+                                                            <% kitchen.subCategories.slice(0,5).forEach(subCat => { %>
+                                                                <li>
+                                                                    <a href="/category/<%= subCat.slug %>"><%= subCat.name %></a>
+                                                                </li>
+                                                            <% }); %>
+                                                            
+                                                            <% if ( kitchen.subCategories.length > 5) { %>
+                                                                <li class="last float-right">
+                                                                    <a href="/products">View All</a>
+                                                                </li>
+                                                            <% } %>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+    
+                                                <!-- column 9 -->
+                                                <div class="categoriestab-left product-tab col-md-9 flex-9">
+                                                    <div class="title-tab-content d-flex justify-content-start">
+                                                        <ul class="nav nav-tabs">
+                                                            <li>
+                                                                <a href="#new_kitchen" data-toggle="tab" class="active">New Arrivals</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#best_kitchen" data-toggle="tab">Best Sellers</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#sale_kitchen" data-toggle="tab">Special Products</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="tab-content">
+                                                        <% if (kitchenProducts.newArrivals.length > 0) { %>
+                                                            <div id="new" class="tab-pane fade in active show">
+                                                                <div class="category-product-index owl-carousel owl-theme owl-loaded owl-drag">
+                                                                    <% kitchenProducts.newArrivals.forEach(newArrivalItem => { %>
+                                                                        <div class="item text-center">
+                                                                            <div class="product-miniature first-item js-product-miniature item-one">
+                                                                                <div class="thumbnail-container">
+                                                                                    <a href="/product/<%= newArrivalItem._id %>">
+                                                                                        <% if (newArrivalItem.images && newArrivalItem.images.length > 0) { %>
+                                                                                            <% // Sort images with isPrimary first 
+                                                                                            const sortedImages = [...newArrivalItem.images].sort((a, b) => 
+                                                                                            (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+                                                                                            ); %>
+                                                                                            
+                                                                                            <% // Display primary image first
+                                                                                            const primaryImage = sortedImages[0]; %>
+                                                                                            <img class="img-fluid image-cover" 
+                                                                                                src="<%= primaryImage.url %>" 
+                                                                                                alt="<%= primaryImage.altText || newArrivalItem.name %>" 
+                                                                                                loading="lazy">
+                                                                                            
+                                                                                            <% // Optionally display secondary images with different classes
+                                                                                            if (sortedImages.length > 1) { %>
+                                                                                            <img class="img-fluid image-secondary" 
+                                                                                                    src="<%= sortedImages[1].url %>" 
+                                                                                                    alt="<%= sortedImages[1].altText || newArrivalItem.name %>" 
+                                                                                                    loading="lazy">
+                                                                                            <% } %>
+                                                                                        <% } else { %>
+                                                                                            <!-- Fallback image if no images exist -->
+                                                                                            <img class="img-fluid image-cover" 
+                                                                                                src="/img/placeholder.jpg" 
+                                                                                                alt="<%= newArrivalItem.name %>" 
+                                                                                                loading="lazy">
+                                                                                        <% } %>
+                                                                                        </a>
+                                                                                    <% if (newArrivalItem.discountPercentage) { %>
+                                                                                        <div class="product-flags discount">-<%= newArrivalItem.discountPercentage %>%</div>
+                                                                                    <% } %>
+                                                                                    <div class="highlighted-informations">
+                                                                                        <% if (newArrivalItem.colors && newArrivalItem.colors.length > 0) { %>
+                                                                                            <div class="variant-links">
+                                                                                            <% newArrivalItem.colors.forEach(color => { %>
+                                                                                                <a href="#" 
+                                                                                                    class="color <%= color.name.toLowerCase() %>" 
+                                                                                                    title="<%= color.name %>"
+                                                                                                    style="background-color: <%= color.hexCode %>;"
+                                                                                                    data-color="<%= color.name %>">
+                                                                                                </a>
+                                                                                            <% }); %>
+                                                                                            </div>
+                                                                                        <% } %>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="product-description">
+                                                                                    <div class="product-groups">
+                                                                                        <div class="product-title">
+                                                                                            <a href="/product/<%= newArrivalItem._id %>"><%= newArrivalItem.name %></a>
+                                                                                        </div>
+                                                                                        <div class="rating">
+                                                                                            <div class="star-content">
+                                                                                                <% const rating = newArrivalItem.averageRating || 0; %>
+                                                                                                <% const fullStars = Math.floor(rating); %>
+                                                                                                <% const hasHalfStar = rating % 1 >= 0.5; %>
+                                                                                                <% const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); %>
+                                                                                                
+                                                                                                <!-- Full stars -->
+                                                                                                <% for (let i = 0; i < fullStars; i++) { %>
+                                                                                                <div class="star full"></div>
+                                                                                                <% } %>
+                                                                                                
+                                                                                                <!-- Half star -->
+                                                                                                <% if (hasHalfStar) { %>
+                                                                                                <div class="star half"></div>
+                                                                                                <% } %>
+                                                                                                
+                                                                                                <!-- Empty stars -->
+                                                                                                <% for (let i = 0; i < emptyStars; i++) { %>
+                                                                                                <div class="star empty"></div>
+                                                                                                <% } %>
+                                                                                            </div>
+                                                                                            <% if (newArrivalItem.reviewCount) { %>
+                                                                                                <span class="review-count">(<%= newArrivalItem.reviewCount %>)</span>
+                                                                                            <% } %>
+                                                                                            </div>
+                                                                                        <div class="product-group-price">
+                                                                                            <div class="product-price-and-shipping">
+                                                                                                <% if (newArrivalItem.discountPrice && newArrivalItem.discountPrice < newArrivalItem.price) { %>
+                                                                                                    <span class="price">£<%= newArrivalItem.discountPrice.toFixed(2) %></span>
+                                                                                                    <del class="regular-price">£<%= newArrivalItem.price.toFixed(2) %></del>
+                                                                                                <% } else { %>
+                                                                                                    <span class="price">£<%= newArrivalItem.price.toFixed(2) %></span>
+                                                                                                <% } %>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="product-buttons d-flex justify-content-center">
+                                                                                        <form action="#" method="post" class="formAddToCart">
+                                                                                            <input type="hidden" name="id_product" value="1">
+                                                                                            <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                            </a>
+                                                                                        </form>
+                                                                                        <a class="addToWishlist" 
+                                                                                        href="#" 
+                                                                                        data-product-id="<%= newArrivalItem._id %>"
+                                                                                        data-wishlisted="<%= isAuthenticated && wishlist.includes(newArrivalItem._id.toString()) ? 'true' : 'false' %>"
+                                                                                        title="<%= isAuthenticated ? (wishlist.includes(newArrivalItem._id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist') : 'Login to add to wishlist' %>">
+                                                                                        
+                                                                                        <i class="fa <%= isAuthenticated && wishlist.includes(newArrivalItem._id.toString()) ? 'fa-heart' : 'fa-heart-o' %>"></i>
+                                                                                    </a>
+                                                                                        <a href="/product/<%= newArrivalItem._id %>" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% }) %>
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+                                                        
+                                                        <% if (kitchenProducts.bestSellers.length > 0) { %>
+                                                            <div id="best" class="tab-pane fade">
+                                                                <div class="category-product-index owl-carousel owl-theme owl-loaded owl-drag">
+                                                                    <% kitchenProducts.bestSellers.forEach(newBestSellerlItem => { %>
+                                                                        <div class="item text-center">
+                                                                            <div class="product-miniature first-item js-product-miniature item-one">
+                                                                                <div class="thumbnail-container">
+                                                                                    <a href="/product/<%= newBestSellerlItem._id %>">
+                                                                                        <% if (newBestSellerlItem.images && newBestSellerlItem.images.length > 0) { %>
+                                                                                            <% // Sort images with isPrimary first 
+                                                                                            const sortedImages = [...newBestSellerlItem.images].sort((a, b) => 
+                                                                                            (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+                                                                                            ); %>
+                                                                                            
+                                                                                            <% // Display primary image first
+                                                                                            const primaryImage = sortedImages[0]; %>
+                                                                                            <img class="img-fluid image-cover" 
+                                                                                                src="<%= primaryImage.url %>" 
+                                                                                                alt="<%= primaryImage.altText || newBestSellerlItem.name %>" 
+                                                                                                loading="lazy">
+                                                                                            
+                                                                                            <% // Optionally display secondary images with different classes
+                                                                                            if (sortedImages.length > 1) { %>
+                                                                                            <img class="img-fluid image-secondary" 
+                                                                                                    src="<%= sortedImages[1].url %>" 
+                                                                                                    alt="<%= sortedImages[1].altText || newBestSellerlItem.name %>" 
+                                                                                                    loading="lazy">
+                                                                                            <% } %>
+                                                                                        <% } else { %>
+                                                                                            <!-- Fallback image if no images exist -->
+                                                                                            <img class="img-fluid image-cover" 
+                                                                                                src="/img/placeholder.jpg" 
+                                                                                                alt="<%= newBestSellerlItem.name %>" 
+                                                                                                loading="lazy">
+                                                                                        <% } %>
+                                                                                        </a>
+                                                                                    <% if (newBestSellerlItem.discountPercentage) { %>
+                                                                                        <div class="product-flags discount">-<%= newBestSellerlItem.discountPercentage %>%</div>
+                                                                                    <% } %>
+                                                                                    <div class="highlighted-informations">
+                                                                                        <% if (newBestSellerlItem.colors && newBestSellerlItem.colors.length > 0) { %>
+                                                                                            <div class="variant-links">
+                                                                                            <% newBestSellerlItem.colors.forEach(color => { %>
+                                                                                                <a href="#" 
+                                                                                                    class="color <%= color.name.toLowerCase() %>" 
+                                                                                                    title="<%= color.name %>"
+                                                                                                    style="background-color: <%= color.hexCode %>;"
+                                                                                                    data-color="<%= color.name %>">
+                                                                                                </a>
+                                                                                            <% }); %>
+                                                                                            </div>
+                                                                                        <% } %>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="product-description">
+                                                                                    <div class="product-groups">
+                                                                                        <div class="product-title">
+                                                                                            <a href="/product/<%= newBestSellerlItem._id %>"><%= newBestSellerlItem.name %></a>
+                                                                                        </div>
+                                                                                        <div class="rating">
+                                                                                            <div class="star-content">
+                                                                                                <% const rating = newBestSellerlItem.averageRating || 0; %>
+                                                                                                <% const fullStars = Math.floor(rating); %>
+                                                                                                <% const hasHalfStar = rating % 1 >= 0.5; %>
+                                                                                                <% const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); %>
+                                                                                                
+                                                                                                <!-- Full stars -->
+                                                                                                <% for (let i = 0; i < fullStars; i++) { %>
+                                                                                                <div class="star full"></div>
+                                                                                                <% } %>
+                                                                                                
+                                                                                                <!-- Half star -->
+                                                                                                <% if (hasHalfStar) { %>
+                                                                                                <div class="star half"></div>
+                                                                                                <% } %>
+                                                                                                
+                                                                                                <!-- Empty stars -->
+                                                                                                <% for (let i = 0; i < emptyStars; i++) { %>
+                                                                                                <div class="star empty"></div>
+                                                                                                <% } %>
+                                                                                            </div>
+                                                                                            <% if (newBestSellerlItem.reviewCount) { %>
+                                                                                                <span class="review-count">(<%= newBestSellerlItem.reviewCount %>)</span>
+                                                                                            <% } %>
+                                                                                            </div>
+                                                                                        <div class="product-group-price">
+                                                                                            <div class="product-price-and-shipping">
+                                                                                                <% if (newBestSellerlItem.discountPrice && newBestSellerlItem.discountPrice < newBestSellerlItem.price) { %>
+                                                                                                    <span class="price">£<%= newBestSellerlItem.discountPrice.toFixed(2) %></span>
+                                                                                                    <del class="regular-price">£<%= newBestSellerlItem.price.toFixed(2) %></del>
+                                                                                                <% } else { %>
+                                                                                                    <span class="price">£<%= newBestSellerlItem.price.toFixed(2) %></span>
+                                                                                                <% } %>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="product-buttons d-flex justify-content-center">
+                                                                                        <form action="#" method="post" class="formAddToCart">
+                                                                                            <input type="hidden" name="id_product" value="1">
+                                                                                            <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                            </a>
+                                                                                        </form>
+                                                                                        <a class="addToWishlist" 
+                                                                                        href="#" 
+                                                                                        data-product-id="<%= newBestSellerlItem._id %>"
+                                                                                        data-wishlisted="<%= isAuthenticated && wishlist.includes(newBestSellerlItem._id.toString()) ? 'true' : 'false' %>"
+                                                                                        title="<%= isAuthenticated ? (wishlist.includes(newBestSellerlItem._id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist') : 'Login to add to wishlist' %>">
+                                                                                        
+                                                                                        <i class="fa <%= isAuthenticated && wishlist.includes(newBestSellerlItem._id.toString()) ? 'fa-heart' : 'fa-heart-o' %>"></i>
+                                                                                    </a>
+                                                                                        <a href="/product/<%= newBestSellerlItem._id %>" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% }) %>
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+    
+                                                        <% if (kitchenProducts.specialProducts.length > 0) { %>
+                                                            <div id="sale" class="tab-pane fade">
+                                                                <div class="category-product-index owl-carousel owl-theme owl-loaded owl-drag">
+                                                                    <% kitchenProducts.specialProducts.forEach(featuredProduct => { %>
+                                                                        <div class="item text-center">
+                                                                            <div class="product-miniature first-item js-product-miniature item-one">
+                                                                                <div class="thumbnail-container">
+                                                                                    <a href="/product/<%= featuredProduct._id %>">
+                                                                                        <% if (featuredProduct.images && featuredProduct.images.length > 0) { %>
+                                                                                            <% // Sort images with isPrimary first 
+                                                                                            const sortedImages = [...featuredProduct.images].sort((a, b) => 
+                                                                                            (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+                                                                                            ); %>
+                                                                                            
+                                                                                            <% // Display primary image first
+                                                                                            const primaryImage = sortedImages[0]; %>
+                                                                                            <img class="img-fluid image-cover" 
+                                                                                                src="<%= primaryImage.url %>" 
+                                                                                                alt="<%= primaryImage.altText || featuredProduct.name %>" 
+                                                                                                loading="lazy">
+                                                                                            
+                                                                                            <% // Optionally display secondary images with different classes
+                                                                                            if (sortedImages.length > 1) { %>
+                                                                                            <img class="img-fluid image-secondary" 
+                                                                                                    src="<%= sortedImages[1].url %>" 
+                                                                                                    alt="<%= sortedImages[1].altText || featuredProduct.name %>" 
+                                                                                                    loading="lazy">
+                                                                                            <% } %>
+                                                                                        <% } else { %>
+                                                                                            <!-- Fallback image if no images exist -->
+                                                                                            <img class="img-fluid image-cover" 
+                                                                                                src="/img/placeholder.jpg" 
+                                                                                                alt="<%= featuredProduct.name %>" 
+                                                                                                loading="lazy">
+                                                                                        <% } %>
+                                                                                    </a>
+                                                                                    <% if (featuredProduct.discountPercentage) { %>
+                                                                                        <div class="product-flags discount">-<%= featuredProduct.discountPercentage %>%</div>
+                                                                                    <% } %>
+                                                                                    <div class="highlighted-informations">
+                                                                                        <% if (featuredProduct.colors && featuredProduct.colors.length > 0) { %>
+                                                                                            <div class="variant-links">
+                                                                                            <% featuredProduct.colors.forEach(color => { %>
+                                                                                                <a href="#" 
+                                                                                                    class="color <%= color.name.toLowerCase() %>" 
+                                                                                                    title="<%= color.name %>"
+                                                                                                    style="background-color: <%= color.hexCode %>;"
+                                                                                                    data-color="<%= color.name %>">
+                                                                                                </a>
+                                                                                            <% }); %>
+                                                                                            </div>
+                                                                                        <% } %>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="product-description">
+                                                                                    <div class="product-groups">
+                                                                                        <div class="product-title">
+                                                                                            <a href="/product/<%= featuredProduct._id %>"><%= featuredProduct.name %></a>
+                                                                                        </div>
+                                                                                        <div class="rating">
+                                                                                            <div class="star-content">
+                                                                                                <% const rating = featuredProduct.averageRating || 0; %>
+                                                                                                <% const fullStars = Math.floor(rating); %>
+                                                                                                <% const hasHalfStar = rating % 1 >= 0.5; %>
+                                                                                                <% const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); %>
+                                                                                                
+                                                                                                <!-- Full stars -->
+                                                                                                <% for (let i = 0; i < fullStars; i++) { %>
+                                                                                                <div class="star full"></div>
+                                                                                                <% } %>
+                                                                                                
+                                                                                                <!-- Half star -->
+                                                                                                <% if (hasHalfStar) { %>
+                                                                                                <div class="star half"></div>
+                                                                                                <% } %>
+                                                                                                
+                                                                                                <!-- Empty stars -->
+                                                                                                <% for (let i = 0; i < emptyStars; i++) { %>
+                                                                                                <div class="star empty"></div>
+                                                                                                <% } %>
+                                                                                            </div>
+                                                                                            <% if (featuredProduct.reviewCount) { %>
+                                                                                                <span class="review-count">(<%= featuredProduct.reviewCount %>)</span>
+                                                                                            <% } %>
+                                                                                            </div>
+                                                                                        <div class="product-group-price">
+                                                                                            <div class="product-price-and-shipping">
+                                                                                                <% if (featuredProduct.discountPrice && featuredProduct.discountPrice < featuredProduct.price) { %>
+                                                                                                    <span class="price">£<%= featuredProduct.discountPrice.toFixed(2) %></span>
+                                                                                                    <del class="regular-price">£<%= featuredProduct.price.toFixed(2) %></del>
+                                                                                                <% } else { %>
+                                                                                                    <span class="price">£<%= featuredProduct.price.toFixed(2) %></span>
+                                                                                                <% } %>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="product-buttons d-flex justify-content-center">
+                                                                                        <form action="#" method="post" class="formAddToCart">
+                                                                                            <input type="hidden" name="id_product" value="1">
+                                                                                            <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                                            </a>
+                                                                                        </form>
+                                                                                        <a class="addToWishlist" 
+                                                                                        href="#" 
+                                                                                        data-product-id="<%= featuredProduct._id %>"
+                                                                                        data-wishlisted="<%= isAuthenticated && wishlist.includes(featuredProduct._id.toString()) ? 'true' : 'false' %>"
+                                                                                        title="<%= isAuthenticated ? (wishlist.includes(featuredProduct._id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist') : 'Login to add to wishlist' %>">
+                                                                                        
+                                                                                        <i class="fa <%= isAuthenticated && wishlist.includes(featuredProduct._id.toString()) ? 'fa-heart' : 'fa-heart-o' %>"></i>
+                                                                                    </a>
+                                                                                        <a href="/product/<%= featuredProduct._id %>" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% }) %>
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- banner -->
+                    <div class="container">
+                        <div class="section spacing-10 group-image-special col-lg-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="effect">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/home/effect3.jpg" alt="banner-1" title="banner-1" loading="lazy">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="effect">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/home/effect4.jpg" alt="banner-2" title="banner-2" loading="lazy">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- testimonial -->
+                        <div class="section testimonial-block col-lg-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 ">
+                                    <div class="block">
+                                        <div class="owl-carousel owl-theme testimonial-type-one">
+                                            <div class="item type-one d-flex align-items-center flex-column">
+                                                <div class="textimonial-image">
+                                                    <i class="icon-testimonial"></i>
+                                                </div>
+                                                <div class="desc-testimonial">
+                                                    <div class="testimonial-content">
+                                                        <div class="text">
+                                                            <p>" Liquam quis risus viverra, ornare ipsum vitae, congue tellus.
+                                                                Vestibulum nunc lorem, scelerisque a tristique non, accumsan
+                                                                ornare eros. Nullam sapien metus, volutpat dictum, accumsan
+                                                                ornare eros. Nullam sapien metus, volutpat dictum "</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-info">
+                                                        <h5 class="mt-0 box-info">David Jame</h5>
+                                                        <p class="box-dress">DESIGNER</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item type-one d-flex align-items-center flex-column">
+                                                <div class="textimonial-image">
+                                                    <i class="icon-testimonial"></i>
+                                                </div>
+                                                <div class="desc-testimonial">
+                                                    <div class="testimonial-content">
+                                                        <div class="text">
+                                                            <p>" Liquam quis risus viverra, ornare ipsum vitae, congue tellus.
+                                                                Vestibulum nunc lorem, scelerisque a tristique non, accumsan
+                                                                ornare eros. Nullam sapien metus, volutpat dictum, accumsan
+                                                                ornare eros. Nullam sapien metus, volutpat dictum "</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-info">
+                                                        <h5 class="mt-0 box-info">Max Control</h5>
+                                                        <p class="box-dress">DEVELOPER</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item type-one d-flex align-items-center flex-column">
+                                                <div class="textimonial-image">
+                                                    <i class="icon-testimonial"></i>
+                                                </div>
+                                                <div class="desc-testimonial">
+                                                    <div class="testimonial-content">
+                                                        <div class="text">
+                                                            <p>" Liquam quis risus viverra, ornare ipsum vitae, congue tellus.
+                                                                Vestibulum nunc lorem, scelerisque a tristique non, accumsan
+                                                                ornare eros. Nullam sapien metus, volutpat dictum, accumsan
+                                                                ornare eros. Nullam sapien metus, volutpat dictum "</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-info">
+                                                        <h5 class="mt-0 box-info">John Do</h5>
+                                                        <p class="box-dress">CSS - HTML</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item type-one d-flex align-items-center flex-column">
+                                                <div class="textimonial-image">
+                                                    <i class="icon-testimonial"></i>
+                                                </div>
+                                                <div class="desc-testimonial">
+                                                    <div class="testimonial-content">
+                                                        <div class="text">
+                                                            <p>" Liquam quis risus viverra, ornare ipsum vitae, congue tellus.
+                                                                Vestibulum nunc lorem, scelerisque a tristique non, accumsan
+                                                                ornare eros. Nullam sapien metus, volutpat dictum, accumsan
+                                                                ornare eros. Nullam sapien metus, volutpat dictum "</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-info">
+                                                        <h5 class="mt-0 box-info">Elizabeth Pham</h5>
+                                                        <p class="box-dress">DEVELOPER</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SHOP THE LOOK -->
+                    <div class="section spacing-10 groupbanner-special ">
+                        <div class="title-block">
+                            <span class="sub-title">shop the lookbook</span>
+                            <span>SHOP THE LOOK</span>
+                            <span>Our Lookbook 2018
+                                <br> hand-picked arrivals from
+                                <br>the best designer
+                            </span>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="tiva-lookbook default col-lg-6 col-md-6 col-xs-12">
+                                <div class="row">
+                                    <div class="items col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="tiva-content-lookbook">
+                                            <img class="img-fluid img-responsive" src="img/home/home1-tolltip1.jpg" alt="lookbook" loading="lazy">
+                                            
+                                            <div class="item-lookbook item1">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip2.jpg" alt="lorem-ipsum-dolor-sit-amet" loading="lazy">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Lorem ipsum dolor</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £52.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="item-lookbook item2">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip1.jpg" alt="contrary-to-popular-belief">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Sed vel malesuada lorem</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £68.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Module Lookbooks -->
+                            <div class="tiva-lookbook default  col-lg-6 col-md-6 col-xs-12">
+                                <div class="row">
+                                    <div class="items col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="tiva-content-lookbook">
+                                            <img class="img-fluid img-responsive" src="img/home/home1-tolltip2.jpg" alt="lookbook">
+                                            
+                                            <div class="item-lookbook item3">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product/34.jpg" alt="lorem-ipsum-dolor-sit-amet">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Lorem ipsum dolor sit</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £45.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="item-lookbook item4">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip6.jpg" alt="lorem-ipsum-dolor-sit-amet">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Lorem ipsum dolor</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £21.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="item-lookbook item5">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip4.jpg" alt="mug-the-adventure-begins">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Sed vel malesuada lorem</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £11.90
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="info-lookbook">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Module Lookbooks -->
+                            <div class="tiva-lookbook default  col-lg-6 col-md-6 col-xs-12">
+                                <div class="row">
+                                    <div class="items col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="tiva-content-lookbook">
+                                            <img class="img-fluid img-responsive" src="img/home/home1-tolltip3.jpg" alt="lookbook">
+                                            
+                                            <div class="item-lookbook item6">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip4.jpg" alt="mug-the-adventure-begins">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Sed vel malesuada lorem</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £11.90
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="item-lookbook item7">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product/13.jpg" alt="brown-bear-vector-graphics">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Orci varius natoque penatibus</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £9.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="item-lookbook item8">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip6.jpg" alt="lorem-ipsum-dolor-sit-amet">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Etiam congue nisl nec</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £16.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="info-lookbook">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Module Lookbooks -->
+                            <div class="tiva-lookbook default  col-lg-6 col-md-6 col-xs-12">
+                                <div class="row">
+                                    <div class="items col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="tiva-content-lookbook">
+                                            <img class="img-fluid img-responsive" src="img/home/home1-tolltip4.jpg" alt="lookbook">
+                                            
+                                            <div class="item-lookbook item9">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip10.jpg" alt="lorem-ipsum-dolor-sit-amet">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Nam semper a ligula nec</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £41.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="item-lookbook item10">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip8.jpg" alt="lorem-ipsum-dolor-sit-amet">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Donec accumsan lectus ut</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £11.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="item-lookbook item11">
+                                                <span class="number-lookbook">+</span>
+                                                <div class="content-lookbook">
+                                                    <div class="main-lookbook  d-flex align-items-center">
+                                                        <div class="item-thumb">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/home/icon-tolltip9.jpg" alt="lorem-ipsum-dolor-sit-amet">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content-bottom">
+                                                            <div class="item-title">
+                                                                <a href="product-detail.html">Fusce quis felis libero</a>
+                                                            </div>
+                                                            <div class="rating">
+                                                                <div class="star-content">
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                    <div class="star"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-price">
+                                                                £11.00
+                                                            </div>
+                                                            <div class="readmore">
+                                                                <a href="product-detail.html">View More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="info-lookbook">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (recentProducts.length > 0) { %>
+                        <!-- recent posts -->
+                        <div class="container">
+                            <div class="section recent-post">
+                                <div class="title-block">RECENT POST</div>
+                                <div class="row">
+                                    <% recentProducts.forEach(recentProduct => { %>
+                                        <div class="col-md-4">
+                                            <div class="item-post">
+                                                <div class="thumbnail-img image-wrapper">
+                                                    <a href="/product/<%=recentProduct._id %>">
+                                                        <img src="<%=recentProduct.images[0].url %>" alt="<%=recentProduct.images[0].altText || recentProduct.name %>" class="responsive-image">
+                                                    </a>
+                                                </div>
+                                                <div class="post-content">
+                                                    <div class="post-info">
+                                                        <span class="comment">
+                                                            <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                                            <span>0 Comments</span>
+                                                        </span>
+                                                        <span class="datetime">
+                                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                            <span>April 12, 2018</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="post-title">
+                                                        <a href="/product/<%=recentProduct._id %>">View Product</a>
+                                                    </div>
+                                                    <div class="post-desc truncate"><%=recentProduct.description %></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% }) %>
+                                </div>
+                            </div>
+    
+                            <!-- partner -->
+                            <div class="section introduct-logo">
+                                <div class="row">
+                                    <div class="tiva-manufacture  col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <div class="block">
+                                            <div id="manufacture" class="owl-carousel owl-theme owl-loaded owl-drag">
+                                                <div class="item">
+                                                    <div class="logo-manu">
+                                                        <a href="#" title="view products">
+                                                            <img class="img-fluid" src="img/home/icon-logo1.jpg" alt="img" loading="lazy"/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="logo-manu">
+                                                        <a href="#" title="view products">
+                                                            <img class="img-fluid" src="img/home/icon-logo2.jpg" alt="img" loading="lazy" />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="logo-manu">
+                                                        <a href="#" title="view products">
+                                                            <img class="img-fluid" src="img/home/icon-logo3.jpg" alt="img"  loading="lazy"/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="logo-manu">
+                                                        <a href="#" title="view products">
+                                                            <img class="img-fluid" src="img/home/icon-logo4.jpg" alt="img" loading="lazy" />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="logo-manu">
+                                                        <a href="#" title="view products">
+                                                            <img class="img-fluid" src="img/home/icon-logo5.jpg" alt="img" loading="lazy"/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="logo-manu">
+                                                        <a href="#" title="view products">
+                                                            <img class="img-fluid" src="img/home/icon-logo6.jpg" alt="img" loading="lazy"/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </section>
+            </div>
+        </div>
+    </div>
+
+</section>

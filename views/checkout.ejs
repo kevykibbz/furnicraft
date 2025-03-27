@@ -1,0 +1,748 @@
+<section>
+  <div class="wrap-banner">
+    <!-- breadcrumb -->
+    <nav class="breadcrumb-bg">
+      <div class="container no-index">
+        <div class="breadcrumb">
+          <ol>
+            <li>
+              <a href="/">
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="checkout">
+                <span>Checkout</span>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </nav>
+
+    <!-- main -->
+    <div id="wrapper-site">
+      <div class="container">
+        <div class="row">
+          <div
+            id="content-wrapper"
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 onecol"
+          >
+            <div id="main">
+              <div class="cart-grid row">
+                <div class="col-md-9 check-info">
+                  <!-- Accordion container -->
+                  <div class="checkout-accordion" id="checkoutAccordion">
+                    <!-- Step 1: Personal Information -->
+                    <div class="card checkout-step">
+                      <div class="card-header" id="headingOne">
+                        <h3 class="step-title h3 info mb-0">
+                          <button
+                            class="btn btn-link"
+                            data-toggle="collapse"
+                            data-target="#collapse1"
+                            aria-expanded="true"
+                            aria-controls="collapse1"
+                          >
+                            <span class="step-number">1</span> PERSONAL
+                            INFORMATION
+                          </button>
+                        </h3>
+                      </div>
+                      <div
+                        id="collapse1"
+                        class="collapse show"
+                        aria-labelledby="headingOne"
+                        data-parent="#checkoutAccordion"
+                      >
+                        <div class="card-body">
+                          <ul class="nav nav-inline">
+                            <li class="nav-item">
+                              <a
+                                class="nav-link active"
+                                data-toggle="tab"
+                                href="#checkout-guest-form"
+                              >
+                                ORDER AS A GUEST
+                              </a>
+                            </li>
+                            <% if (!user) { %>
+                            <li class="nav-item">
+                              <a
+                                class="nav-link"
+                                data-toggle="tab"
+                                href="#checkout-login-form"
+                              >
+                                SIGN IN
+                              </a>
+                            </li>
+                            <% } %>
+                          </ul>
+                          <div class="tab-content">
+                            <div
+                              class="tab-pane fade in active show"
+                              id="checkout-guest-form"
+                              role="tabpanel"
+                            >
+                              <form
+                                id="checkout-form"
+                                class="js-customer-form"
+                                method="post"
+                              >
+                                <div>
+                                  <input
+                                    type="hidden"
+                                    name="id_customer"
+                                    value="<%= user._id %>"
+                                  />
+                                  <div class="form-group row">
+                                    <input
+                                      class="form-control"
+                                      name="firstname"
+                                      type="text"
+                                      value="<%= user.fullName %>"
+                                      placeholder="Full name"
+                                      required
+                                    />
+                                  </div>
+                                  <div class="form-group row">
+                                    <input
+                                      class="form-control"
+                                      name="email"
+                                      type="email"
+                                      value="<%= user.email %>"
+                                      placeholder="Email"
+                                      required
+                                    />
+                                  </div>
+                                  <div class="form-group row">
+                                    <input
+                                      class="form-control"
+                                      name="phone"
+                                      type="tel"
+                                      value="<%= user.phone %>"
+                                      placeholder="Phone"
+                                      required
+                                    />
+                                  </div>
+                                  <% if (!user) { %>
+                                  <div class="desc-password">
+                                    <span class="font-weight-bold"
+                                      >Create an account</span
+                                    >
+                                    <span>(optional)</span>
+                                    <br />
+                                    <span class="text-muted"
+                                      >And save time on your next order!</span
+                                    >
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="input-group js-parent-focus">
+                                      <input
+                                        class="form-control js-child-focus"
+                                        name="password"
+                                        type="password"
+                                        placeholder="Password"
+                                      />
+                                    </div>
+                                  </div>
+                                  <% } %>
+                                  <div class="clearfix">
+                                    <div class="row">
+                                      <button
+                                        class="continue btn btn-primary"
+                                        name="continue"
+                                        data-action="continue-step"
+                                        data-link-action="register-new-customer"
+                                        type="button"
+                                        onclick="validateStep(1)"
+                                      >
+                                        Continue
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <% if (!user) { %>
+                            <div
+                              class="tab-pane fade"
+                              id="checkout-login-form"
+                              role="tabpanel"
+                            >
+                              <form
+                                id="login-form"
+                                method="post"
+                                class="customer-form"
+                              >
+                                <div>
+                                  <div class="form-group row">
+                                    <input
+                                      class="form-control"
+                                      name="email"
+                                      type="email"
+                                       value="<%= user.email %>"
+                                      placeholder="Email"
+                                      required
+                                    />
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="input-group js-parent-focus">
+                                      <input
+                                        class="form-control js-child-focus js-visible-password"
+                                        name="password"
+                                        type="password"
+                                        placeholder="Password"
+                                        required
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="forgot-password">
+                                      <a href="/forgot-password" rel="nofollow">
+                                        Forgot your password?
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div class="clearfix">
+                                    <div class="row">
+                                      <button
+                                        class="continue btn btn-primary"
+                                        name="continue"
+                                        data-action="continue-step"
+                                        data-link-action="sign-in"
+                                        type="button"
+                                        onclick="validateStep(1)"
+                                      >
+                                        Continue
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Step 2: Addresses -->
+                    <div class="card checkout-step">
+                      <div class="card-header" id="headingTwo">
+                        <h3 class="step-title h3 mb-0">
+                          <button
+                            class="btn btn-link collapsed"
+                            data-toggle="collapse"
+                            data-target="#collapse2"
+                            aria-expanded="false"
+                            aria-controls="collapse2"
+                          >
+                            <span class="step-number">2</span> Addresses
+                          </button>
+                        </h3>
+                      </div>
+                      <div
+                        id="collapse2"
+                        class="collapse"
+                        aria-labelledby="headingTwo"
+                        data-parent="#checkoutAccordion"
+                      >
+                        <div class="card-body">
+                          <form id="address-form">
+                            <div class="form-group row">
+                              <input
+                                class="form-control"
+                                name="address1"
+                                type="text"
+                                value="<%= user.shippingAddress && user.shippingAddress.street %>"
+                                placeholder="Street address"
+                                required
+                              />
+                            </div>
+                            <div class="form-group row">
+                              <input
+                                class="form-control"
+                                name="address2"
+                                type="text"
+                                placeholder="Apartment, suite, unit etc. (optional)"
+                              />
+                            </div>
+                            <div class="form-group row">
+                              <input
+                                class="form-control"
+                                name="city"
+                                type="text"
+                                <%= user.shippingAddress.city %>
+                                placeholder="Town/City"
+                                required
+                              />
+                            </div>
+                            <div class="form-group row">
+                              <input
+                                class="form-control"
+                                name="postcode"
+                                <%= user.shippingAddress.postalCode %>
+                                type="text"
+                                placeholder="Postcode/ZIP"
+                                required
+                              />
+                            </div>
+                            <div class="form-group row">
+                              <select
+                                class="form-control"
+                                name="country"
+                                required
+                              >
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <!-- Add more countries as needed -->
+                              </select>
+                            </div>
+                            <div class="form-group row">
+                              <button
+                                class="continue btn btn-primary"
+                                type="button"
+                                data-action="continue-step"
+                                onclick="validateStep(2)"
+                              >
+                                Continue
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Step 3: Shipping Method -->
+                    <div class="card checkout-step">
+                      <div class="card-header" id="headingThree">
+                        <h3 class="step-title h3 mb-0">
+                          <button
+                            class="btn btn-link collapsed"
+                            data-toggle="collapse"
+                            data-target="#collapse3"
+                            aria-expanded="false"
+                            aria-controls="collapse3"
+                          >
+                            <span class="step-number">3</span> Shipping Method
+                          </button>
+                        </h3>
+                      </div>
+                      <div
+                        id="collapse3"
+                        class="collapse"
+                        aria-labelledby="headingThree"
+                        data-parent="#checkoutAccordion"
+                      >
+                        <div class="card-body">
+                          <div class="shipping-methods">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="shippingMethod"
+                                id="standardShipping"
+                                value="standard"
+                                checked
+                              />
+                              <label
+                                class="form-check-label"
+                                for="standardShipping"
+                              >
+                                Standard Shipping (3-5 business days) - Free
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="shippingMethod"
+                                id="expressShipping"
+                                value="express"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="expressShipping"
+                              >
+                                Express Shipping (1-2 business days) - £5.99
+                              </label>
+                            </div>
+                          </div>
+                          <div class="form-group row mt-3">
+                            <button
+                              class="continue btn btn-primary"
+                              type="button"
+                              data-action="continue-step"
+                              onclick="validateStep(3)"
+                            >
+                              Continue
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Step 4: Payment -->
+<div class="card checkout-step">
+    <div class="card-header" id="headingFour">
+      <h3 class="step-title h3 mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <span class="step-number">4</span> Payment
+        </button>
+      </h3>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#checkoutAccordion">
+      <div class="card-body">
+        <div class="payment-methods">
+            <div class="paypal-method text-center mb-3">
+                <button id="paypal-button" class="btn btn-primary" style="background: none;border:1px solid gray;border-radius:5px" onclick="initializePayPalButton()">
+                    <img src="/img/paypal.png" alt="PayPal" style="height: 40px; cursor: pointer;">
+                </button>
+                <p class="text-muted mb-3">Pay securely using your PayPal account</p>
+                <div id="paypal-button-container" class="mt-3"></div>
+            </div>
+            
+          
+          <div class="alternative-payment text-center mt-4">
+            <p class="text-muted">Or continue with</p>
+            <button class="btn btn-outline-secondary" disabled>
+              Credit/Debit Card (Coming Soon)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+                  </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="cart-grid-right col-xs-12 col-lg-3">
+                  <div class="cart-summary">
+                    <h3 class="cart-summary-title">Order Summary</h3>
+                    <div class="cart-detailed-totals">
+                      <div class="cart-summary-products">
+                        <div class="summary-label">
+                          There <%= cart.items.length === 1 ? 'is 1 item' : `are
+                          ${cart.items.length} items` %> in your cart
+                        </div>
+                      </div>
+                      <div
+                        class="cart-summary-line"
+                        id="cart-subtotal-products"
+                      >
+                        <span class="label js-subtotal">Total products:</span>
+                        <span class="value"
+                          >£<%= cart.items.length.toFixed(2) %></span
+                        >
+                      </div>
+
+                      <div
+                        class="cart-summary-line"
+                        id="cart-subtotal-shipping"
+                      >
+                        <span class="label">Total Shipping:</span>
+                        <span class="value"
+                          ><%= cart.shippingCost === 0 ? 'Free' :
+                          `£${cart.shippingCost.toFixed(2)}` %></span
+                        >
+                      </div>
+
+                      <% let total = 0; cart.items.forEach(item => { total +=
+                      item.product.price * item.quantity; }); %>
+                      <div class="cart-summary-line cart-total">
+                        <span class="label">Total:</span>
+                        <span class="value"
+                          >£<%= total.toFixed(2) %> (tax incl.)</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div id="block-reassurance">
+                    <ul>
+                      <li>
+                        <div class="block-reassurance-item">
+                          <img
+                            src="/img/product/check1.png"
+                            alt="Security policy"
+                          />
+                          <span>Secure Payment</span>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="block-reassurance-item">
+                          <img
+                            src="/img/product/check2.png"
+                            alt="Delivery policy"
+                          />
+                          <span>Fast Delivery</span>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="block-reassurance-item">
+                          <img
+                            src="/img/product/check3.png"
+                            alt="Return policy"
+                          />
+                          <span>Easy Returns</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PayPal SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=ASpO6N8YxRmkDLYNhGbLPA092Cc6auai-XKSUnajvFUBn8j_RI-6lU--kd2YXQE4Q749BILkUjOijSZF&currency=GBP"></script>
+<script>
+    let isCurrentlyValidating = false;
+    let paypalButtonsRendered = false;
+
+    // Function to collect all form data from all steps
+    function collectAllFormData() {
+        const forms = document.querySelectorAll('#checkoutAccordion form');
+        const formData = {};
+        
+        forms.forEach(form => {
+            const inputs = form.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                // Skip buttons and file inputs
+                if (input.type === 'button' || input.type === 'submit' || input.type === 'file') {
+                    return;
+                }
+                
+                // Handle checkboxes and radios
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    if (input.checked) {
+                        formData[input.name] = input.value;
+                    }
+                } else {
+                    formData[input.name] = input.value;
+                }
+            });
+        });
+        
+        return formData;
+    }
+
+    function validateStep(stepNumber) {
+        if (isCurrentlyValidating) return false;
+        isCurrentlyValidating = true;
+        
+        let isValid = true;
+        let form = null;
+
+        switch (stepNumber) {
+            case '1': 
+                const activeTab = document.querySelector(".tab-pane.active");
+                if (activeTab) {
+                    form = activeTab.querySelector("form");
+                }
+                break;
+            case '2':
+                form = document.querySelector("#address-form");
+                break;
+            case '3':
+                isCurrentlyValidating = false;
+                return true;
+        }
+
+        if (form) {
+            const inputs = form.querySelectorAll("input[required], select[required]");
+            inputs.forEach((input) => {
+                const errorMessage = input.nextElementSibling?.classList?.contains('error-message') 
+                    ? input.nextElementSibling 
+                    : null;
+
+                if (!input.value.trim()) {
+                    input.classList.add("is-invalid");
+                    isValid = false;
+
+                    if (!errorMessage) {
+                        const newError = document.createElement("div");
+                        newError.classList.add("error-message", "text-danger", "mt-1");
+                        newError.textContent = "This field is required";
+                        input.insertAdjacentElement('afterend', newError);
+                    }
+                } else {
+                    input.classList.remove("is-invalid");
+                    if (errorMessage) {
+                        errorMessage.remove();
+                    }
+                }
+            });
+        }
+
+        isCurrentlyValidating = false;
+        return isValid;
+    }
+
+    function goToNextStep(currentStep, event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        if (validateStep(currentStep)) {
+            console.log('Validation passed for step', currentStep);
+            
+            const currentCollapse = document.querySelector(`#collapse${currentStep}`);
+            const nextStepNum = parseInt(currentStep) + 1;
+            const nextCollapse = document.querySelector(`#collapse${nextStepNum}`);
+
+            if (currentCollapse && nextCollapse) {
+                $(currentCollapse).collapse('hide');
+                
+                $(currentCollapse).on('hidden.bs.collapse', function() {
+                    $(nextCollapse).collapse('show');
+                    
+                    if (nextStepNum === 4 && !paypalButtonsRendered) {
+                        initializePayPalButton();
+                        paypalButtonsRendered = true;
+                    }
+                    
+                    $(this).off('hidden.bs.collapse');
+                });
+            }
+        }
+    }
+
+    function initializePayPalButton() {
+        if (typeof paypal === "undefined") {
+            console.error("PayPal SDK not loaded");
+            return;
+        }
+
+        // Clear previous buttons if any
+        document.getElementById('paypal-button-container').innerHTML = '';
+        
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                // Get and clean the total amount
+                const totalText = document.querySelector(".cart-total .value").textContent;
+                const amount = parseFloat(totalText.replace(/[^0-9.]/g, '')).toFixed(2);
+                
+                if (isNaN(amount) || amount <= 0) {
+                    console.error("Invalid amount:", amount);
+                    throw new Error("Invalid payment amount");
+                }
+
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount,
+                            currency_code: "GBP"
+                        }
+                    }]
+                });
+            },
+            onApprove: async function(data, actions) {
+                try {
+                    const details = await actions.order.capture();
+                    // Collect all form data before saving
+                    const formData = collectAllFormData();
+                    await saveOrder("PayPal", details.id, formData);
+                    showPopup("success", "Payment successful!", "Your order has been placed successfully");
+                    setTimeout(() => {
+                        window.location.href = "/user-acount";
+                    }, 2000);
+                } catch (err) {
+                    console.error("Payment failed:", err);
+                    showPopup("error", "Payment failed!", "Your order was not successfully placed. Please try again later.");
+                }
+            },
+            onError: function(err) {
+                console.error("PayPal error:", err);
+                showPopup("error", "Payment failed!", "An error occurred with PayPal. Please try again.");
+            }
+        }).render('#paypal-button-container');
+    }
+
+    async function saveOrder(paymentMethod, transactionId = null, formData = {}) {
+        try {
+            // Get cart items from localStorage
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            
+            // Calculate total amount (sum of all items' price * quantity)
+            const totalAmount = cartItems.reduce((total, item) => {
+                return total + (item.price * item.quantity);
+            }, 0);
+            
+            // Set shipping cost based on method (you should define your shipping options)
+            const shippingOption = document.querySelector('input[name="shippingMethod"]:checked')?.value || 'standard';
+            const shippingCost = shippingOption === 'express' ? 10.00 : 5.00; // Example values
+            
+            const orderData = {
+                user: "<%= user._id %>", // This should be a proper ObjectId
+                items: cartItems.map(item => ({
+                    product: item._id,
+                    quantity: item.quantity,
+                    price: item.price
+                })),
+                shippingAddress: {
+                    street: formData.address1 || "N/A",
+                    city: formData.city || "N/A",
+                    state: formData.state || "N/A",
+                    postalCode: formData.postcode || "N/A",
+                    country: formData.country || "N/A"
+                },
+                shippingOption: shippingOption,
+                shippingCost: shippingCost,
+                paymentMethod: paymentMethod,
+                totalAmount: totalAmount + shippingCost, 
+                status: "Pending"
+            };
+    
+            console.log("Submitting order:", orderData);
+            const response = await fetch("/api/orders", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(orderData),
+            });
+    
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error("Failed to save order:", error);
+            throw error;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        if (typeof $ === "undefined" || typeof $.fn.collapse === "undefined") {
+            console.error("Bootstrap Collapse plugin not available");
+            return;
+        }
+
+        document.addEventListener('click', function(e) {
+            const button = e.target.closest('[data-action="continue-step"]');
+            if (button) {
+                const currentStep = button.closest(".checkout-step");
+                const stepNumberElement = currentStep.querySelector(".step-number");
+                if (stepNumberElement) {
+                    goToNextStep(stepNumberElement.textContent.trim(), e);
+                }
+            }
+        });
+
+        $("#checkoutAccordion").on("show.bs.collapse", function(e) {
+            $(this).find(".collapse.show").not(e.target).collapse("hide");
+        });
+
+        $(".checkout-step .collapse").not("#collapse1").collapse("hide");
+    });
+</script>

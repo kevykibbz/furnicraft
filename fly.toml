@@ -1,0 +1,16 @@
+app = "shopsphere" 
+primary_region = "lax"  
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  APP_PORT = "3000"
+  APP_NAME = "ShopSphere"
+  APP_PHONE_NUMBER = "+1 123 456 7890"
+  BUCKET_STORAGE_URL = "tevinly-7b079.appspot.com"
+
+[http_service]
+  internal_port = 3000
+  force_https = true

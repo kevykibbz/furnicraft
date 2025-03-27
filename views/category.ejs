@@ -1,0 +1,525 @@
+<%- include('scripts/add-wishlist') %>
+<section>
+    <div id="wrapper-site">
+        <div id="content-wrapper" class="full-width">
+            <div id="main">
+                <div class="page-home">
+                    <!-- breadcrumb -->
+                    <nav class="breadcrumb-bg">
+                        <div class="container no-index">
+                            <div class="breadcrumb">
+                                <ol>
+                                    <li>
+                                        <a href="/">
+                                            <span>Home</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/category/<%= currentCategory.slug %>">
+                                            <span><%= currentCategory.name %></span>
+                                        </a>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div class="container">
+                        <div class="content">
+                            <div class="row">
+                                <div class="sidebar-3 sidebar-collection col-lg-3 col-md-4 col-sm-4">
+                                    <!-- category menu -->
+                                    <div class="sidebar-block">
+                                        <div class="title-block">Categories</div>
+                                        <% if (categories.length > 0) { %>
+                                            <div class="block-content">
+                                                <% categories.forEach(category => { %>
+                                                    <div class="cateTitle hasSubCategory open level1">
+                                                        <span class="arrow collapsed collapse-icons" data-toggle="collapse" data-target="#<%= category.name %>" aria-expanded="false" role="status">
+                                                            <i class="zmdi zmdi-minus"></i>
+                                                            <i class="zmdi zmdi-plus"></i>
+                                                        </span>
+                                                        <a class="cateItem" href="/category/<%= category.slug %>"><%= category.name %></a>
+                                                        <% if (category.subCategories.length > 0) { %>
+                                                            <div class="subCategory collapse" id="<%= category.name %>" aria-expanded="true" role="status">
+                                                                <% category.subCategories.forEach(subCat => { %>
+                                                                    <div class="cateTitle">
+                                                                        <a href="/subcategory/<%= subCat.slug%>" class="cateItem"><%= subCat.name %></a>
+                                                                    </div>
+                                                                <% }) %> 
+                                                            </div>
+                                                        <% } %>
+                                                    </div>
+                                                <% }) %>
+                                            </div>
+                                        <% } %>
+                                    </div>
+
+                                    <!-- best seller -->
+                                    <div class="sidebar-block">
+                                        <div class="title-block">Catalog</div>
+                                        <div class="new-item-content">
+                                            <h3 class="title-product">Subcategories</h3>
+                                            <ul class="scroll-product">
+                                              <% if (currentCategory.subCategories && currentCategory.subCategories.length > 0) { 
+                                                // Create a map of subcategory IDs to product counts
+                                                const subCatCounts = {};
+                                                products.forEach(product => {
+                                                  if (product.subCategory) {
+                                                    subCatCounts[product.subCategory] = (subCatCounts[product.subCategory] || 0) + 1;
+                                                  }
+                                                });
+                                              %>
+                                                <% currentCategory.subCategories.forEach(subCat => { %>
+                                                  <li>
+                                                    <label class="check">
+                                                      <input type="checkbox" 
+                                                             name="subcategory_filter" 
+                                                             value="<%= subCat._id %>">
+                                                      <span class="checkmark"></span>
+                                                    </label>
+                                                    <a href="/subcategory/<%= subCat.slug || subCat._id %>">
+                                                      <b><%= subCat.name %></b>
+                                                      <span class="quantity">(<%= subCatCounts[subCat._id] || 0 %>)</span>
+                                                    </a>
+                                                  </li>
+                                                <% }) %>
+                                              <% } else { %>
+                                                <li>No subcategories available</li>
+                                              <% } %>
+                                            </ul>
+                                          </div>
+                                        
+                                        <div class="tiva-filter-price new-item-content sidebar-block">
+                                            <h3 class="title-product">By Price</h3>
+                                            <div id="block_price_filter" class="block">
+                                                <div class="block-content">
+                                                    <div id="slider-range" class="tiva-filter">
+                                                        <div class="filter-itemprice-filter">
+                                                            <div class="layout-slider">
+                                                                <input id="price-filter" name="price" value="0;100" />
+                                                            </div>
+                                                            <div class="layout-slider-settings"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sidebar-block by-color">
+                                            <h3 class="title-product">By Color</h3>
+                                            <% 
+                                              // Count products by color in current category
+                                              const colorCounts = {};
+                                              const colorDisplay = {
+                                                blue: { class: 'color-item1', name: 'Blue' },
+                                                green: { class: 'color-item2', name: 'Green' },
+                                                yellow: { class: 'color-item3', name: 'Yellow' },
+                                                brown: { class: 'color-item4', name: 'Brown' },
+                                                pink: { class: 'color-item5', name: 'Pink' },
+                                                red: { class: 'color-item6', name: 'Red' }
+                                              };
+                                          
+                                              products.forEach(product => {
+                                                if (product.colors && product.colors.length > 0) {
+                                                  product.colors.forEach(color => {
+                                                    const colorKey = color.name.toLowerCase();
+                                                    colorCounts[colorKey] = (colorCounts[colorKey] || 0) + 1;
+                                                  });
+                                                }
+                                              });
+                                          
+                                              // Convert to array of available colors
+                                              const availableColors = Object.keys(colorDisplay).filter(color => 
+                                                colorCounts[color] > 0
+                                              );
+                                            %>
+                                          
+                                            <% 
+                                              // Group colors in pairs (left/right) 
+                                              for (let i = 0; i < availableColors.length; i += 2) {
+                                                const color1 = availableColors[i];
+                                                const color2 = availableColors[i + 1];
+                                            %>
+                                              <div>
+                                                <!-- Left Color -->
+                                                <span class="left">
+                                                  <label class="<%= colorDisplay[color1].class %>"></label>
+                                                  <a href="/products?color=<%= encodeURIComponent(color1) %>&category=<%= currentCategory.slug %>">
+                                                    <span><%= colorDisplay[color1].name %>
+                                                      <span>(<%= colorCounts[color1] %>)</span>
+                                                    </span>
+                                                  </a>
+                                                </span>
+                                          
+                                                <!-- Right Color (if exists) -->
+                                                <% if (color2) { %>
+                                                  <span class="right">
+                                                    <label class="<%= colorDisplay[color2].class %>"></label>
+                                                    <a href="/products?color=<%= encodeURIComponent(color2) %>&category=<%= currentCategory.slug %>">
+                                                      <span><%= colorDisplay[color2].name %>
+                                                        <span>(<%= colorCounts[color2] %>)</span>
+                                                      </span>
+                                                    </a>
+                                                  </span>
+                                                <% } %>
+                                              </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
+
+                                    <!-- product tag -->
+                                    <div class="sidebar-block product-tags">
+                                        <div class="title-block">
+                                          Product Tags
+                                        </div>
+                                        <div class="block-content">
+                                          <ul class="listSidebarBlog list-unstyled">
+                                            <% 
+                                              // Get all unique tags from products in current category
+                                              const allTags = [];
+                                              products.forEach(product => {
+                                                if (product.tags && product.tags.length > 0) {
+                                                  product.tags.forEach(tag => {
+                                                    if (!allTags.includes(tag)) {
+                                                      allTags.push(tag);
+                                                    }
+                                                  });
+                                                }
+                                              });
+                                              
+                                              // Sort tags alphabetically
+                                              allTags.sort();
+                                            %>
+                                      
+                                            <% if (allTags.length > 0) { %>
+                                              <% allTags.forEach(tag => { %>
+                                                <li>
+                                                  <a href="/products?tag=<%= encodeURIComponent(tag) %>" 
+                                                     title="Show products matching tag <%= tag %>">
+                                                    <%= tag %>
+                                                  </a>
+                                                </li>
+                                              <% }) %>
+                                            <% } else { %>
+                                              <li>No tags available</li>
+                                            <% } %>
+                                          </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-lg-9 col-md-8 product-container">
+                                    <h1><%= currentCategory.name %></h1>
+                                    <div class="js-product-list-top firt nav-top">
+                                        <div class="d-flex justify-content-around row">
+                                            <div class="col col-xs-12">
+                                                <ul class="nav nav-tabs">
+                                                    <li>
+                                                        <a href="#grid" data-toggle="tab" class="active show fa fa-th-large"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#list" data-toggle="tab" class="fa fa-list-ul"></a>
+                                                    </li>
+                                                </ul>
+                                                <div class="hidden-sm-down total-products">
+                                                    <p>There are <%= products.length %> product<%= products.length !== 1 ? 's' : '' %>.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col col-xs-12">
+                                                <div class="d-flex sort-by-row justify-content-lg-end justify-content-md-end">
+
+                                                    <div class="products-sort-order dropdown">
+                                                        <select class="select-title">
+                                                            <option value="">Sort by</option>
+                                                            <option value="">Name, A to Z</option>
+                                                            <option value="">Name, Z to A</option>
+                                                            <option value="">Price, low to high</option>
+                                                            <option value="">Price, high to low</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content product-items">
+                                        <div id="grid" class="related tab-pane fade in active show">
+                                            <div class="row">
+                                                <% products.forEach(product => { %>
+                                                    <div class="item text-center col-md-4">
+                                                        <div class="product-miniature js-product-miniature item-one first-item">
+                                                            <div class="thumbnail-container border">
+                                                                <a href="/product/<%= product._id %>">
+                                                                    <% if (product.images && product.images.length > 0) { %>
+                                                                        <% // Sort images with isPrimary first 
+                                                                        const sortedImages = [...product.images].sort((a, b) => 
+                                                                        (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+                                                                        ); %>
+                                                                        
+                                                                        <% // Display primary image first
+                                                                        const primaryImage = sortedImages[0]; %>
+                                                                        <img class="img-fluid image-cover" 
+                                                                            src="<%= primaryImage.url %>" 
+                                                                            alt="<%= primaryImage.altText || product.name %>" 
+                                                                            loading="lazy">
+                                                                        
+                                                                        <% // Optionally display secondary images with different classes
+                                                                        if (sortedImages.length > 1) { %>
+                                                                        <img class="img-fluid image-secondary" 
+                                                                                src="<%= sortedImages[1].url %>" 
+                                                                                alt="<%= sortedImages[1].altText || product.name %>" 
+                                                                                loading="lazy">
+                                                                        <% } %>
+                                                                    <% } else { %>
+                                                                        <!-- Fallback image if no images exist -->
+                                                                        <img class="img-fluid image-cover" 
+                                                                            src="/img/placeholder.jpg" 
+                                                                            alt="<%= product.name %>" 
+                                                                            loading="lazy">
+                                                                    <% } %>
+                                                                    </a>
+                                                                <div class="highlighted-informations">
+                                                                    <div class="variant-links">
+                                                                        <% product.colors.forEach(color => { %>
+                                                                            <a href="#" 
+                                                                                class="color <%= color.name.toLowerCase() %>" 
+                                                                                title="<%= color.name %>"
+                                                                                style="background-color: <%= color.hexCode %>;"
+                                                                                data-color="<%= color.name %>">
+                                                                            </a>
+                                                                        <% }); %>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-description">
+                                                                <div class="product-groups">
+                                                                    <div class="product-title">
+                                                                        <a href="/product/<%= product._id %>"><%= product.name %></a>
+                                                                    </div>
+                                                                    <div class="rating">
+                                                                        <div class="star-content">
+                                                                            <% const rating = product.averageRating || 0; %>
+                                                                            <% const fullStars = Math.floor(rating); %>
+                                                                            <% const hasHalfStar = rating % 1 >= 0.5; %>
+                                                                            <% const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); %>
+                                                                            
+                                                                            <!-- Full stars -->
+                                                                            <% for (let i = 0; i < fullStars; i++) { %>
+                                                                            <div class="star full"></div>
+                                                                            <% } %>
+                                                                            
+                                                                            <!-- Half star -->
+                                                                            <% if (hasHalfStar) { %>
+                                                                            <div class="star half"></div>
+                                                                            <% } %>
+                                                                            
+                                                                            <!-- Empty stars -->
+                                                                            <% for (let i = 0; i < emptyStars; i++) { %>
+                                                                            <div class="star empty"></div>
+                                                                            <% } %>
+                                                                        </div>
+                                                                        <% if (product.reviewCount) { %>
+                                                                            <span class="review-count">(<%= product.reviewCount %>)</span>
+                                                                        <% } %>
+                                                                        </div>
+                                                                    <div class="product-group-price">
+                                                                        <div class="product-price-and-shipping">
+                                                                            <% if (product.discountPrice && product.discountPrice < product.price) { %>
+                                                                                <span class="price">£<%= product.discountPrice.toFixed(2) %></span>
+                                                                                <del class="regular-price">£<%= product.price.toFixed(2) %></del>
+                                                                            <% } else { %>
+                                                                                <span class="price">£<%= product.price.toFixed(2) %></span>
+                                                                            <% } %>
+                                                                            </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-buttons d-flex justify-content-center">
+                                                                    <form action="#" method="post" class="formAddToCart">
+                                                                        <input type="hidden" name="id_product" value="1">
+                                                                        <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                        </a>
+                                                                    </form>
+                                                                    <a class="addToWishlist" 
+                                                                        href="#" 
+                                                                        data-product-id="<%= product._id %>"
+                                                                        data-wishlisted="<%= isAuthenticated && wishlist.includes(product._id.toString()) ? 'true' : 'false' %>"
+                                                                        title="<%= isAuthenticated ? (wishlist.includes(product._id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist') : 'Login to add to wishlist' %>">
+                                                                        
+                                                                        <i class="fa <%= isAuthenticated && wishlist.includes(product._id.toString()) ? 'fa-heart' : 'fa-heart-o' %>"></i>
+                                                                    </a>
+                                                                    <a href="/product/<%= product._id %>" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% }) %>
+                                            </div>
+                                        </div>
+                                        <div id="list" class="related tab-pane fade">
+                                            <div class="row">
+                                                <% products.forEach(product => { %>
+                                                    <div class="item col-md-12">
+                                                        <div class="product-miniature item-one first-item">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="thumbnail-container border">
+                                                                        <a href="/product/<%= product._id %>">
+                                                                            <% if (product.images && product.images.length > 0) { %>
+                                                                                <% // Sort images with isPrimary first 
+                                                                                const sortedImages = [...product.images].sort((a, b) => 
+                                                                                (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+                                                                                ); %>
+                                                                                
+                                                                                <% // Display primary image first
+                                                                                const primaryImage = sortedImages[0]; %>
+                                                                                <img class="img-fluid image-cover" 
+                                                                                    src="<%= primaryImage.url %>" 
+                                                                                    alt="<%= primaryImage.altText || product.name %>" 
+                                                                                    loading="lazy">
+                                                                                
+                                                                                <% // Optionally display secondary images with different classes
+                                                                                if (sortedImages.length > 1) { %>
+                                                                                <img class="img-fluid image-secondary" 
+                                                                                        src="<%= sortedImages[1].url %>" 
+                                                                                        alt="<%= sortedImages[1].altText || product.name %>" 
+                                                                                        loading="lazy">
+                                                                                <% } %>
+                                                                            <% } else { %>
+                                                                                <!-- Fallback image if no images exist -->
+                                                                                <img class="img-fluid image-cover" 
+                                                                                    src="/img/placeholder.jpg" 
+                                                                                    alt="<%= product.name %>" 
+                                                                                    loading="lazy">
+                                                                            <% } %>
+                                                                            </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="product-description">
+                                                                        <div class="product-groups">
+                                                                            <div class="product-title">
+                                                                                <a href="/product/<%= product._id %>"><%= product.name %></a>
+                                                                                <span class="info-stock">
+                                                                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                                                    In Stock
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="rating">
+                                                                                <div class="star-content">
+                                                                                    <% const rating = product.averageRating || 0; %>
+                                                                                    <% const fullStars = Math.floor(rating); %>
+                                                                                    <% const hasHalfStar = rating % 1 >= 0.5; %>
+                                                                                    <% const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); %>
+                                                                                    
+                                                                                    <!-- Full stars -->
+                                                                                    <% for (let i = 0; i < fullStars; i++) { %>
+                                                                                    <div class="star full"></div>
+                                                                                    <% } %>
+                                                                                    
+                                                                                    <!-- Half star -->
+                                                                                    <% if (hasHalfStar) { %>
+                                                                                    <div class="star half"></div>
+                                                                                    <% } %>
+                                                                                    
+                                                                                    <!-- Empty stars -->
+                                                                                    <% for (let i = 0; i < emptyStars; i++) { %>
+                                                                                    <div class="star empty"></div>
+                                                                                    <% } %>
+                                                                                </div>
+                                                                                <% if (product.reviewCount) { %>
+                                                                                    <span class="review-count">(<%= product.reviewCount %>)</span>
+                                                                                <% } %>
+                                                                                </div>
+                                                                            <div class="product-group-price">
+                                                                                <div class="product-price-and-shipping">
+                                                                                    <% if (product.discountPrice && product.discountPrice < product.price) { %>
+                                                                                        <span class="price">£<%= product.discountPrice.toFixed(2) %></span>
+                                                                                        <del class="regular-price">£<%= product.price.toFixed(2) %></del>
+                                                                                    <% } else { %>
+                                                                                        <span class="price">£<%= product.price.toFixed(2) %></span>
+                                                                                    <% } %>
+                                                                                    </div>
+                                                                            </div>
+                                                                            <div class="discription truncate">
+                                                                               <%= product.description %>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-buttons d-flex">
+                                                                            <form action="#" method="post" class="formAddToCart">
+                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>Add to cart
+                                                                                </a>
+                                                                            </form>
+                                                                            <a class="addToWishlist" 
+                                                                                href="#" 
+                                                                                data-product-id="<%= product._id %>"
+                                                                                data-wishlisted="<%= isAuthenticated && wishlist.includes(product._id.toString()) ? 'true' : 'false' %>"
+                                                                                title="<%= isAuthenticated ? (wishlist.includes(product._id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist') : 'Login to add to wishlist' %>">
+                                                                                
+                                                                                <i class="fa <%= isAuthenticated && wishlist.includes(product._id.toString()) ? 'fa-heart' : 'fa-heart-o' %>"></i>
+                                                                            </a>
+                                                                            <a href="/product/<%= product._id %>" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% }) %>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- pagination -->
+                                    <div class="pagination">
+                                        <div class="js-product-list-top ">
+                                            <div class="d-flex justify-content-around row">
+                                                <div class="showing col col-xs-12">
+                                                    <span>SHOWING 1-3 OF 3 ITEM(S)</span>
+                                                </div>
+                                                <div class="page-list col col-xs-12">
+                                                    <ul>
+                                                        <li>
+                                                            <a rel="prev" href="#" class="previous disabled js-search-link">
+                                                                Previous
+                                                            </a>
+                                                        </li>
+                                                        <li class="current active">
+                                                            <a rel="nofollow" href="#" class="disabled js-search-link">
+                                                                1
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a rel="nofollow" href="#" class="disabled js-search-link">
+                                                                2
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a rel="nofollow" href="#" class="disabled js-search-link">
+                                                                3
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a rel="next" href="#" class="next disabled js-search-link">
+                                                                Next
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col-md-9-1 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

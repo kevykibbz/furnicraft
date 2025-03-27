@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!-- Required Meta Tags -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <meta name="format-detection" content="telephone=no">
+  
+  <!-- Primary Meta Tags -->
+  <title><%= title || 'FurniCraft - Premium Handcrafted Furniture' %></title>
+  <meta name="title" content="<%= title || 'FurniCraft - Premium Handcrafted Furniture' %>">
+  <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Discover handcrafted, sustainable furniture for modern living. Free shipping on all orders over $499.' %>">
+  <meta name="keywords" content="<%= typeof keywords !== 'undefined' ? keywords : 'furniture, handmade furniture, sustainable furniture, modern furniture, home decor' %>">
+  <meta name="author" content="FurniCraft">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook (Social Media Sharing) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://furnicraft.com/">
+  <meta property="og:title" content="<%= title || 'FurniCraft - Premium Handcrafted Furniture' %>">
+  <meta property="og:description" content="<%= typeof description !== 'undefined' ? description : 'Discover handcrafted, sustainable furniture for modern living.' %>">
+  <meta property="og:image" content="<%= typeof image !== 'undefined' ? image : '/img/social-share.jpg' %>">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://furnicraft.com/">
+  <meta property="twitter:title" content="<%= title || 'FurniCraft - Premium Handcrafted Furniture' %>">
+  <meta property="twitter:description" content="<%= typeof description !== 'undefined' ? description : 'Discover handcrafted, sustainable furniture for modern living.' %>">
+  <meta property="twitter:image" content="<%= typeof image !== 'undefined' ? image : '/img/social-share.jpg' %>">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="128x128" href="/img/logo-128.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/img/logo-64.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/logo-16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Canonical URL (SEO) -->
+  <link rel="canonical" href="https://furnicraft.com<%= originalUrl || url %>">
+
+  <!-- Mobile Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
+
+  <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/libs/font-material/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="/libs/nivo-slider/css/nivo-slider.css">
+  <link rel="stylesheet" href="/libs/nivo-slider/css/animate.css">
+  <link rel="stylesheet" href="/libs/nivo-slider/css/style.css">
+  <link rel="stylesheet" href="/libs/owl-carousel/assets/owl.carousel.min.css">
+  <link rel="stylesheet"  type="text/css" href="/css/style.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/reponsive.css">
+  <link rel="stylesheet"  type="text/css" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/mobiscroll.jquery.min.css">
+
+
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="/js/mobiscroll.jquery.min.js"></script>
+  <script>
+    mobiscroll.setOptions({
+      locale: mobiscroll.localeEn,
+      theme: "ios",
+      themeVariant: "light",
+    });
+  
+    var popup;
+  
+    $(function () {
+      popup = $("#demo-popup")
+        .mobiscroll()
+        .popup({
+          display: window.innerWidth < 768 ? "bottom" : "center",
+        })
+        .mobiscroll("getInst");
+  
+      $("#demo-popup-close").on("click", function () {
+        popup.close();
+      });
+    });
+  
+    function showPopup(type, title, message, next = { link: null, text: "" }) {
+        $("#popup-title").text(title);
+        $("#popup-message").text(message);
+      
+        if (type === "success") {
+          $("#popup-icon").addClass("success-icon").removeClass("error-icon");
+        } else {
+          $("#popup-icon").addClass("error-icon").removeClass("success-icon");
+        }
+      
+        const popupButton = $("#popup-action-btn");
+        const closeButton = $("#demo-popup-close");
+      
+        if (next.link) {
+          popupButton.text(next.text).show().off("click").on("click", function () {
+            window.location.href = next.link;
+          });
+          closeButton.hide();
+        } else {
+          popupButton.hide();
+          closeButton.show();
+          setTimeout(() => {
+            popup.close();
+          }, 3000);
+        }
+      
+        popup.open();
+      }
+      
+  </script>
+  
+</head>
+<body id="<%= typeof bodyId !== "undefined" ? bodyId : 'home' %>" class="<%= typeof bodyClass !== "undefined" ? bodyClass : '' %>">
+    
+    <%- include('scripts/remove-cart') %>
+    <%- include('partials/header') %>
+    <div class="main-content">
+        <%- body %>
+    </div>
+    <%- include('partials/footer') %>
+    
+    <!-- back top top -->
+    <div class="back-to-top">
+        <a href="#">
+            <i class="fa fa-long-arrow-up"></i>
+        </a>
+    </div>
+
+    <!-- menu mobie left -->
+    <div class="mobile-top-menu d-md-none">
+        <button type="button" class="close" aria-label="Close">
+            <i class="zmdi zmdi-close"></i>
+        </button>
+        <div class="tiva-verticalmenu block" data-count_showmore="17">
+            <div class="box-content block-content">
+                <div class="verticalmenu" role="navigation">
+                    <ul class="menu level1">
+                        <li class="item  parent">
+                            <a href="#" class="hasicon" title="SIDE TABLE">
+                                <img src="img/home/table-lamp.png" alt="img">SIDE TABLE</a>
+                            <span class="arrow collapsed" data-toggle="collapse" data-target="#SIDE-TABLE" aria-expanded="false" role="status">
+                                <i class="zmdi zmdi-minus"></i>
+                                <i class="zmdi zmdi-plus"></i>
+                            </span>
+                            <div class="subCategory collapse" id="SIDE-TABLE" aria-expanded="true" role="status">
+                                <div class="menu-items">
+                                    <ul>
+                                        <li class="item">
+                                            <a href="#" title="Aliquam lobortis">Aliquam lobortis</a>
+                                        </li>
+                                        <li class="item  parent-submenu">
+                                            <a href="#" title="Duis Reprehenderit">Duis Reprehenderit</a>
+                                            <span class="arrow collapsed" data-toggle="collapse" data-target="#sub-Category" aria-expanded="false" role="status">
+                                                <i class="zmdi zmdi-minus"></i>
+                                                <i class="zmdi zmdi-plus"></i>
+                                            </span>
+                                            <div class="subCategory collapse" id="sub-Category" aria-expanded="true" role="status">
+                                                <div class="menu-items">
+                                                    <ul>
+                                                        <li class="item">
+                                                            <a href="#" title="Aliquam lobortis">Aliquam lobortis</a>
+                                                        </li>
+                                                        <li class="item">
+                                                            <a href="#" title="Duis Reprehenderit">Duis Reprehenderit</a>
+                                                        </li>
+                                                        <li class="item">
+                                                            <a href="#" title="Voluptate">Voluptate</a>
+                                                        </li>
+                                                        <li class="item">
+                                                            <a href="#" title="Tongue Est">Tongue Est</a>
+                                                        </li>
+                                                        <li class="item">
+                                                            <a href="#" title="Venison Andouille">Venison Andouille</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item">
+                                            <a href="#" title="Voluptate">Voluptate</a>
+                                        </li>
+                                        <li class="item">
+                                            <a href="#" title="Tongue Est">Tongue Est</a>
+                                        </li>
+                                        <li class="item">
+                                            <a href="#" title="Venison Andouille">Venison Andouille</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item  parent group">
+                            <a href="#" class="hasicon" title="FI">
+                                <img src="img/home/fireplace.png" alt="img">FIREPLACE
+                            </a>
+                            <span class="arrow collapsed" data-toggle="collapse" data-target="#fi" aria-expanded="false" role="status">
+                                <i class="zmdi zmdi-minus"></i>
+                                <i class="zmdi zmdi-plus"></i>
+                            </span>
+                            <div class="subCategory collapse" id="fi" aria-expanded="true" role="status">
+                                <div class="item">
+                                    <div class="menu-content">
+                                        <div class="tags d-flex d-xs-flex-inherit">
+                                            <div class="title">
+                                                <b>DINNING ROOM</b>
+                                            </div>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="#">Toshiba</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Samsung</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">LG</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sharp</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Electrolux</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Hitachi</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Panasonic</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Mitsubishi Electric</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Daikin</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Haier</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tags d-flex d-xs-flex-inherit">
+                                            <div class="title">
+                                                <b>BATHROOM</b>
+                                            </div>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="#">Toshiba</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Samsung</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">LG</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sharp</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Electrolux</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Hitachi</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Panasonic</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Mitsubishi Electric</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Daikin</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Haier Media</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Gee</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Digimart</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Vitivaa</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sanaky</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sunshine</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tags d-flex d-xs-flex-inherit">
+                                            <div class="title">
+                                                <b>LIVING ROOM</b>
+                                            </div>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="#">Media</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Gee</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Digimart</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Vitivaa</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sanaky</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sunshine</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Toshiba</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Samsung</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">LG</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sharp</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Electrolux</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Hitachi</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Panasonic</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Mitsubishi Electric</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Daikin</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Haier</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tags d-flex d-xs-flex-inherit">
+                                            <div class="title">
+                                                <b>BEDROOM</b>
+                                            </div>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="#">LG</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sharp</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Electrolux</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Hitachi</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Panasonic</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Mitsubishi Electric</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Daikin</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Haier</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tags d-flex d-xs-flex-inherit">
+                                            <div class="title">
+                                                <b>KITCHEN</b>
+                                            </div>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="#">LG</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sharp</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Electrolux</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Hitachi</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Panasonic</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Mitsubishi Electric</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Daikin</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Haier</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tags d-flex d-xs-flex-inherit">
+                                            <div class="title">
+                                                <b>Blender</b>
+                                            </div>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="#">LG</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Sharp</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Electrolux</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Hitachi</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Panasonic</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Mitsubishi Electric</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Daikin</a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">Haier</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item group-category-img parent group">
+                            <a href="#" class="hasicon" title="TABLE LAMP">
+                                <img src="img/home/table-lamp.png" alt="img">TABLE LAMP</a>
+                            <span class="arrow collapsed" data-toggle="collapse" data-target="#table-lamp" aria-expanded="false" role="status">
+                                <i class="zmdi zmdi-minus"></i>
+                                <i class="zmdi zmdi-plus"></i>
+                            </span>
+                            <div class="subCategory collapse" id="table-lamp" aria-expanded="true" role="status">
+                                <div class="item">
+                                    <div class="menu-content">
+                                        <div class="col-xs-12">
+                                            <span class="menu-title">Coventry dining</span>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Accessories</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Activewear</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">ASOS Basic Tops</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Bags &amp; Purses</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Beauty</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Coats &amp; Jackets</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Curve &amp; Plus Size</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <span class="menu-title">Amara stools</span>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Accessories</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Activewear</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">ASOS Basic Tops</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Bags &amp; Purses</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Beauty</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Coats &amp; Jackets</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Curve &amp; Plus Size</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <span class="menu-title">Kingston dining</span>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Accessories</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Activewear</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">ASOS Basic Tops</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Bags &amp; Purses</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Beauty</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Coats &amp; Jackets</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Curve &amp; Plus Size</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <span class="menu-title">Ellinger dining</span>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Accessories</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Activewear</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">ASOS Basic Tops</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Bags &amp; Purses</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Beauty</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Coats &amp; Jackets</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Curve &amp; Plus Size</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="OTTOMAN">
+                                <img src="img/home/ottoman.png" alt="img">OTTOMAN
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="ARMCHAIR">
+                                <img src="img/home/armchair.png" alt="img">ARMCHAIR
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="CUSHION">
+                                <img src="img/home/cushion.png" alt="img">CUSHION
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="COFFEE TABLE">
+                                <img src="img/home/coffee_table.png" alt="img">COFFEE TABLE</a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="SHELF">
+                                <img src="img/home/shelf.png" alt="img">SHELF
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="SOFA">
+                                <img src="img/home/sofa.png" alt="img">SOFA
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="DRESSING TABLE">
+                                <img src="img/home/dressing.png" alt="img">DRESSING TABLE</a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="WINDOWN CURTAIN">
+                                <img src="img/home/windown.png" alt="img">WINDOWN CURTAIN</a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="CHANDELIER">
+                                <img src="img/home/chandelier.png" alt="img">CHANDELIER
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="CEILING FAN">
+                                <img src="img/home/ceiling_fan.png" alt="img">CEILING FAN</a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="WARDROBE">
+                                <img src="img/home/wardrobe.png" alt="img">WARDROBE
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="FLOOR LAMP">
+                                <img src="img/home/floor_lamp.png" alt="img">FLOOR LAMP</a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="VASE-FLOWER ">
+                                <img src="img/home/vase-flower.png" alt="img">VASE-FLOWER
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="BED">
+                                <img src="img/home/bed.png" alt="img">BED
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="BED GIRL">
+                                <img src="img/home/bed.png" alt="img">BED GIRL</a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="hasicon" title="BED BOY">
+                                <img src="img/home/bed.png" alt="img">BED BOY</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- menu mobie right -->
+    <div id="mobile-pagemenu" class="mobile-boxpage d-flex hidden-md-up active d-md-none">
+        <div class="content-boxpage col">
+            <div class="box-header d-flex justify-content-between align-items-center">
+                <div class="title-box">Menu</div>
+                <div class="close-box">Close</div>
+            </div>
+            <div class="box-content">
+                <nav>
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div id="megamenu" class="clearfix">
+                        <ul class="menu level1">
+                            <li class="item home-page has-sub">
+                                <a href="/" title="Home">
+                                    <i class="fa fa-home" aria-hidden="true"></i>Home
+                                </a>
+                            </li>
+                            <li class="item has-sub">
+                                <a href="/about" title="About us">
+                                    <i class="fa fa-history" aria-hidden="true"></i>About us
+                                </a>
+                            </li>
+                            <li class="item has-sub">
+                                <a href="/contact" title="Contact us">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>Contact us
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Page Loader -->
+    <div id="page-preloader">
+        <div class="page-loading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div mbsc-page class="demo-showing-the-popover">
+        <div style="height: 100%">
+          <div style="display: none">
+            <div id="demo-popup">
+              <div class="mbsc-align-center">
+                <div class="mbsc-align-center mbsc-padding">
+                  <img id="popup-icon" class="popup-icon" />
+                  <h4 id="popup-title"></h4>
+                  <p id="popup-message"></p>
+                </div>
+                <div class="mbsc-button-group-block">
+                    <button id="popup-action-btn" class="btn btn-primary" style="display: none;"></button>
+                    <button mbsc-button id="demo-popup-close" class="btn btn-primary">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Scripts -->
+    <script src="/js/mobiscroll.jquery.min.js"></script>
+    <script src="/libs/popper/popper.min.js"></script>
+    <script src="/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/libs/nivo-slider/js/jquery.nivo.slider.js"></script>
+    <script src="/libs/owl-carousel/owl.carousel.min.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="js/search/search.js"></script>
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "FurniCraft",
+      "url": "https://furnicraft.com",
+      "logo": "https://furnicraft.com/img/logo.png",
+      "sameAs": [
+        "https://facebook.com/furnicraft",
+        "https://instagram.com/furnicraft",
+        "https://pinterest.com/furnicraft"
+      ]
+    }
+    </script>
+</body>
+</html>
